@@ -1,0 +1,106 @@
+{
+  "name": "react-native-youtube-player",
+  "version": "0.0.1",
+  "description": "Youtube Player for React Native",
+  "main": "lib/mobile/commonjs/index.js",
+  "react-native": "lib/mobile/module/index.js",
+  "module": "lib/mobile/module/index.js",
+  "types": "lib/typescript/index.d.ts",
+  "files": [
+    "src",
+    "lib"
+  ],
+  "scripts": {
+    "test": "jest",
+    "start:web": "parcel ./src/web/index.html",
+    "start:mobile": "yarn example start",
+    "typescript": "tsc --noEmit",
+    "lint": "eslint --ext .js,.ts,.tsx .",
+    "release": "release-it",
+    "example": "yarn --cwd example",
+    "bootstrap": "yarn && yarn example",
+    "prepare": "bob build"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "keywords": [
+    "react-native-component",
+    "react-component",
+    "react-native",
+    "ios",
+    "android",
+    "tab",
+    "swipe",
+    "scrollable",
+    "coverflow"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/react-native-community/react-native-tab-view.git"
+  },
+  "author": "Satyajit Sahoo <satyajit.happy@gmail.com> (https://github.com/satya164/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/react-native-community/react-native-tab-view/issues"
+  },
+  "homepage": "https://github.com/react-native-community/react-native-tab-view#readme",
+  "devDependencies": {
+    "@commitlint/config-conventional": "^7.5.0",
+    "@expo/vector-icons": "^9.0.0",
+    "@react-native-community/bob": "^0.4.1",
+    "@types/expo": "^32.0.13",
+    "@types/react": "^16.8.17",
+    "babel-jest": "^24.1.0",
+    "babel-preset-react-native": "^4.0.0",
+    "commitlint": "^7.5.2",
+    "conventional-changelog-cli": "^2.0.12",
+    "eslint": "^5.16.0",
+    "eslint-config-satya164": "^2.4.1",
+    "eslint-plugin-react-native-globals": "^0.1.2",
+    "husky": "^1.3.1",
+    "jest": "^24.1.0",
+    "prettier": "^1.17.1",
+    "react-native-reanimated": "^1.0.1",
+    "release-it": "^10.1.0",
+    "typescript": "^3.4.5"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*",
+    "react-native-reanimated": "*",
+    "react-native-webview": "^5.10.0",
+    "@react-native-community/slider": "^1.1.2",
+    "react-native-webview-invoke": "^0.5.0",
+    "youtube-player": "^5.5.2"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "yarn lint && yarn typescript"
+    }
+  },
+  "jest": {
+    "preset": "react-native",
+    "modulePathIgnorePatterns": [
+      "<rootDir>/example/node_modules",
+      "<rootDir>/lib/"
+    ]
+  },
+  "@react-native-community/bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      "commonjs",
+      "module",
+      "typescript"
+    ]
+  },
+  "dependencies": {
+    "@react-native-community/slider": "^1.1.2",
+    "react-native-reanimated": "^1.0.1",
+    "react-native-webview": "^5.10.0",
+    "react-native-webview-invoke": "^0.5.0",
+    "youtube-player": "^5.5.2"
+  }
+}
