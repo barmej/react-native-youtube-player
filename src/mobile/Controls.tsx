@@ -16,7 +16,8 @@ export default ({
   playVideo,
   pauseVideo,
   seekTo,
-  toggleFS
+  toggleFS,
+  fullScreen
 }) => {
   const [visible, setVisible] = useState(true);
   const ref = useRef(0);
@@ -42,7 +43,9 @@ export default ({
     currentTime !== 0 && duration !== 0 ? currentTime / duration : 0;
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[styles.container, { paddingHorizontal: fullScreen ? 40 : 0 }]}
+    >
       <TouchableWithoutFeedback
         onPress={() => hideAfterExecute(setVisible)(true)}
         style={styles.upperView}
@@ -58,13 +61,18 @@ export default ({
             })()
           }
         >
-          <View style={styles.controls}>
+          <View
+            style={[
+              styles.controls,
+              { paddingHorizontal: fullScreen ? 40 : 5 }
+            ]}
+          >
             {play ? (
               <PauseIcon onPress={pauseVideo} />
             ) : (
               <PlayIcon onPress={playVideo} />
             )}
-            <View style={styles.footer}>
+            <View style={[styles.footer, { bottom: fullScreen ? 30 : 10 }]}>
               <Text style={styles.text}> {sec2time(currentTime)} </Text>
               <View style={styles.footerRight}>
                 <Text style={styles.text}> {sec2time(duration)} </Text>
@@ -76,7 +84,7 @@ export default ({
       )}
       <ProgressBar
         value={progress}
-        {...{ visible, seekTo, duration, pauseVideo, playVideo }}
+        {...{ fullScreen, visible, seekTo, duration, pauseVideo, playVideo }}
       />
     </View>
   );
@@ -84,15 +92,14 @@ export default ({
 
 const styles = StyleSheet.create({
   container: {
-    ...StyleSheet.absoluteFill,
+    ...StyleSheet.absoluteFillObject,
     width: "100%"
   },
   upperView: {
-    ...StyleSheet.absoluteFill
-    //backgroundColor: "red"
+    ...StyleSheet.absoluteFillObject
   },
   controls: {
-    ...StyleSheet.absoluteFill,
+    ...StyleSheet.absoluteFillObject,
     alignContent: "center",
     justifyContent: "center",
     alignItems: "center",
@@ -102,19 +109,17 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingHorizontal: 10,
-    paddingBottom: 16,
     alignItems: "center",
-    position: "absolute",
-    bottom: 0
+    position: "absolute"
   },
   text: {
     color: "#FFF",
     fontSize: 12,
-    marginRight: 10
+    marginRight: 0
   },
   footerRight: {
-    flexDirection: "row"
+    flexDirection: "row",
+    alignItems: "center"
   },
   progress: {
     width: "100%",

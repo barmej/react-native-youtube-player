@@ -20,7 +20,17 @@ const instructions = Platform.select({
 type Props = {};
 export default class App extends Component<Props> {
   render() {
-    return <YoutubePlayer videoId="Z1LmpiIGYNs" autoPlay={true} />;
+    return (
+      <View>
+        <YoutubePlayer videoId="Z1LmpiIGYNs" autoPlay={false} />
+        <Text>
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quod
+          laudantium id vitae similique consequuntur recusandae nostrum, ab
+          mollitia a velit? Minus voluptatem blanditiis quis repellat fugiat vel
+          libero, fugit necessitatibus.
+        </Text>
+      </View>
+    );
   }
 }
 

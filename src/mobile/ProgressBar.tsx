@@ -9,9 +9,10 @@ export default ({
   seekTo,
   duration,
   pauseVideo,
-  playVideo
+  playVideo,
+  fullScreen
 }) => (
-  <View style={styles.container}>
+  <View style={[styles.container, { bottom: fullScreen ? 20 : 0 }]}>
     <Progress progress={value} />
     {visible && (
       <Slider
@@ -21,7 +22,6 @@ export default ({
         onSlidingComplete={p => {
           seekTo(parseInt(p * duration, 10));
           playVideo();
-          console.log("sfdfdfds", p);
         }}
         maximumValue={1}
         minimumTrackTintColor="red"
@@ -52,10 +52,11 @@ const Progress = ({ progress }) => {
 
 const styles = StyleSheet.create({
   container: {
+    alignSelf: "center",
     width: "100%",
     height: 2,
     position: "absolute",
-    bottom: 0
+    bottom: 0 // animated to 20 on fullScreen
   },
   progress: {
     width: "100%",
@@ -70,6 +71,7 @@ const styles = StyleSheet.create({
     height: 2,
     alignItems: "flex-end",
     flexDirection: "row",
+    backgroundColor: "#FFF",
     width: "100%"
   }
 });
