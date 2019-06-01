@@ -1,12 +1,15 @@
 import { StyleSheet } from "react-native";
+import { VideoSize } from "./Utils";
 
 const styles = StyleSheet.create({
   inline: {
     flex: 0,
-    backgroundColor: "#000"
+    backgroundColor: "#000",
+    ...StyleSheet.absoluteFillObject
   },
   fullScreen: {
     position: "absolute",
+    ...StyleSheet.absoluteFillObject,
     marginTop: 0,
     flex: 0,
     zIndex: 99,
@@ -22,6 +25,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: 30,
     borderRadius: 15
+  },
+  wrapper: {
+    height: VideoSize.inline.height,
+    width: VideoSize.inline.width,
+    zIndex: 99,
+    paddingTop: 30,
+    backgroundColor: "#000"
   }
 });
 

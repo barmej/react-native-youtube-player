@@ -14,13 +14,14 @@ export type YTPlayerProps = {
   onReady: () => void;
   onError: () => void;
   onPlay: () => void;
+  onPlaying: (s: number) => void;
   onPause: () => void;
   onEnd: () => void;
   onDurationReady: (s: number) => void;
-  onStateChange: () => void;
+  onStateChange: (s: YTPlayerState) => void;
   onPlaybackRateChange: () => void;
   onPlaybackQualityChange: () => void;
-} & typeof YTPlayerDefaultProps;
+};
 
 export type PlayerState = {
   ready: Boolean;
@@ -28,19 +29,21 @@ export type PlayerState = {
   play: Boolean;
   duration: number;
   currentTime: number;
-  top: number;
-  left: number;
+  layout: {
+    top: number;
+    left: number;
+  };
 };
 
 export const YTPlayerDefaultProps = {
   style: {},
-
   onReady: () => {},
   onError: () => {},
   onPlay: () => {},
   onPause: () => {},
   onEnd: () => {},
-  onDurationReady: (s: number) => {},
+  onPlaying: () => {},
+  onDurationReady: () => {},
   onStateChange: () => {},
   onPlaybackRateChange: () => {},
   onPlaybackQualityChange: () => {}

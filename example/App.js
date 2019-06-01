@@ -21,7 +21,7 @@ type Props = {};
 export default class App extends Component<Props> {
   render() {
     return (
-      <View>
+      <View style={{ paddingTop: 60 }}>
         <YoutubePlayer videoId="Z1LmpiIGYNs" autoPlay={false} />
         <Text>
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quod

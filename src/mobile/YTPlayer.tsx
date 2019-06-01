@@ -4,38 +4,21 @@ import { WebView } from "react-native-webview";
 import { YTPlayerState, YTPlayerProps, YTPlayerDefaultProps } from "./types";
 
 export default class YTPlayer extends Component<YTPlayerProps> {
-  static defaultProps = { ...YTPlayerDefaultProps };
+  static defaultProps = YTPlayerDefaultProps;
   webview: any;
   invoke = createInvoke(() => this.webview);
   _createPlayer = this.invoke.bind("createPlayer");
   _playVideo = this.invoke.bind("playVideo");
-  _seekTo = this.invoke.bind("seekTo");
   _pauseVideo = this.invoke.bind("pauseVideo");
-  _getDuration = this.invoke.bind("getDuration");
-  _setSize = this.invoke.bind("setSize");
+  _seekTo = this.invoke.bind("seekTo");
 
   invokeFunctions = () => {
     // invoke fuctions
-    this.invoke
-      .define("onReady", this.onReady)
-      .define("onError", this.onError)
-      .define("onStateChange", this.onStateChange)
-      .define("setDuration", this.setDuration)
-      .define("setCurrentTime", this.setCurrentTime);
-  };
-  initPlayer = async () => {
-    // create Player
-    const { videoId, autoPlay } = this.props;
-    const opts = { videoId, playerVars: { autoPlay } };
-    await this._createPlayer(opts);
-    if (autoPlay) this.playVideo();
-  };
-  setDuration = (duration: number) => {
-    this.props.onDurationReady(duration);
-    // this.setState({ duration });
-  };
-  setCurrentTime = (currentTime: number) => {
-    //this.props.onPlaying(currentTime);
+    this.invoke.define("onReady", this.props.onReady);
+    this.invoke.define("onError", this.props.onError);
+    this.invoke.define("onStateChange", this.props.onStateChange);
+    this.invoke.define("onPlaying", this.props.onPlaying);
+    this.invoke.define("onDurationReady", this.props.onDurationReady);
   };
 
   componentDidMount = async () => {
@@ -43,33 +26,18 @@ export default class YTPlayer extends Component<YTPlayerProps> {
     this.initPlayer();
   };
 
-  playVideo = async () => {
-    await this._playVideo();
-  };
-  seekTo = async (s: number) => {
-    await this._seekTo(s);
-  };
-
-  pauseVideo = async () => {
-    await this._pauseVideo();
+  initPlayer = async () => {
+    // create Player
+    const { videoId, autoPlay } = this.props;
+    const opts = { videoId, playerVars: { autoPlay } };
+    await this._createPlayer(opts);
+    if (autoPlay) await this._playVideo();
   };
 
-  // listners
-  onReady = () => {
-    console.log("ready player ready ");
-  };
-  onError = () => {
-    console.log("error");
-  };
-  onEnded = () => {
-    this.seekTo(0);
-    this.pauseVideo();
-  };
   onStateChange = (state: YTPlayerState) => {
-    if (state === YTPlayerState.ENDED) this.onEnded();
+    if (state === YTPlayerState.ENDED) this.props.onEnd();
+    this.props.onStateChange(state);
   };
-  onPlaybackRateChange = () => {};
-  onPlaybackQualityChange = () => {};
 
   render() {
     return (

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Animated, { Easing } from "react-native-reanimated";
-const { Value, timing, concat, interpolate, Extrapolate } = Animated;
+const { Value, timing, concat } = Animated;
 
-import { View } from "react-native";
+import { View, StatusBar } from "react-native";
 import styles from "./styles";
 import PlayerControls from "./Controls";
 import PlayerView from "./YTPlayer";
@@ -20,35 +20,24 @@ export default class Player extends Component<Props, PlayerState> {
       play: this.props.autoPlay,
       duration: 0,
       currentTime: 0,
-      top: 0,
-      left: 0
+      layout: {
+        top: 0,
+        left: 0
+      }
     };
   }
   player: any;
-  _width = new Value(VideoSize.inline.width);
 
-  playVideo = () => {
-    this.player.playVideo();
-    this.setState({ play: true });
-  };
-  seekTo = async (s: number) => {
-    this.setState({ currentTime: s });
-    //await this._seekTo(s);
+  _width = new Value(VideoSize.inline.width + 2);
+
+  // listeners
+  onDurationReady = (duration: number) => {
+    this.setState({ duration });
   };
 
-  pauseVideo = () => {
-    this.player.pauseVideo();
-    this.setState({ play: false });
+  onPlaying = (currentTime: number) => {
+    this.setState({ currentTime });
   };
-
-  toggleFS = () => {
-    const { fullScreen } = this.state;
-    this.setState({ fullScreen: !fullScreen });
-    if (fullScreen) this.goToInlineScreen();
-    else this.goToFullScreen();
-  };
-
-  // listners
   onReady = () => {
     console.log("ready");
     this.setState({ ready: true });
@@ -65,76 +54,85 @@ export default class Player extends Component<Props, PlayerState> {
   };
   onPlaybackRateChange = () => {};
   onPlaybackQualityChange = () => {};
+
+  playVideo = () => {
+    this.setState({ play: true });
+    this.player._playVideo();
+  };
+  seekTo = async (s: number) => {
+    this.setState({ currentTime: s });
+    this.player._seekTo(s);
+  };
+
+  pauseVideo = () => {
+    this.setState({ play: false });
+    this.player._pauseVideo();
+  };
+
+  toggleFS = () => {
+    const { fullScreen } = this.state;
+    this.setState({ fullScreen: !fullScreen });
+    if (fullScreen) this.goToInlineScreen();
+    else this.goToFullScreen();
+  };
+
   goToFullScreen = () => {
     timing(this._width, {
       toValue: VideoSize.fullScreen.width,
-      duration: 300,
+      duration: 200,
       easing: Easing.inOut(Easing.ease)
     }).start();
+    StatusBar.setHidden(true);
   };
   goToInlineScreen = () => {
     timing(this._width, {
       toValue: VideoSize.inline.width,
-      duration: 300,
+      duration: 200,
       easing: Easing.inOut(Easing.ease)
     }).start();
+    StatusBar.setHidden(false);
   };
   onLayout = ({
     nativeEvent: {
       layout: { x, y }
     }
   }: any) => {
-    this.setState({ top: y, left: x });
+    this.setState({ layout: { top: y, left: x } });
   };
 
   render() {
     const { fullScreen } = this.state;
-    const { height, rotate, translate } = fullScreenInterpolate(this._width);
-    const inputRange = [VideoSize.inline.width, VideoSize.fullScreen.width];
-    const top = interpolate(this._width, {
-      inputRange,
-      outputRange: [this.state.top, 0],
-      extrapolate: Extrapolate.CLAMP
-    });
-    const left = interpolate(this._width, {
-      inputRange,
-      outputRange: [this.state.left, 0],
-      extrapolate: Extrapolate.CLAMP
-    });
+    const { height, rotate, translateX, translateY } = fullScreenInterpolate(
+      this._width,
+      this.state.layout
+    );
+
     const VideoStyle = fullScreen ? { ...styles.fullScreen } : styles.inline;
 
     const { playVideo, pauseVideo, seekTo, toggleFS } = this;
     const { videoId, autoPlay } = this.props;
+    const style: any = {
+      ...VideoStyle,
+      width: this._width,
+      height,
+      transform: [
+        { rotateZ: concat(rotate, "deg") },
+        { translateX },
+        { translateY }
+      ]
+    };
 
     return (
-      <View
-        style={{
-          height: VideoSize.inline.height,
-          width: VideoSize.inline.width,
-          zIndex: 99,
-          paddingTop: 30,
-          backgroundColor: "#000"
-        }}
-      >
-        <Animated.View
-          onLayout={this.onLayout}
-          style={[
-            VideoStyle,
-            {
-              width: this._width,
-              height,
-              transform: [
-                { rotateZ: concat(rotate, "deg") },
-                { translateX: translate },
-                { translateY: translate }
-              ]
-            }
-          ]}
-        >
+      <View style={styles.wrapper} onLayout={this.onLayout}>
+        <Animated.View style={style}>
           <PlayerView
             videoId={videoId}
             autoPlay={autoPlay}
             ref={(player: any) => (this.player = player)}
+            onDurationReady={this.onDurationReady}
+            onReady={this.onReady}
+            onError={this.onError}
+            onPlaying={this.onPlaying}
           />
           <PlayerControls
             {...{ playVideo, seekTo, pauseVideo, toggleFS, ...this.state }}

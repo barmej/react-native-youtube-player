@@ -1,13 +1,21 @@
 import React, { useState, useRef, useEffect } from "react";
 import { View, StyleSheet, TouchableWithoutFeedback, Text } from "react-native";
-import { PlayIcon, PauseIcon, FSIcon, FSExitIcon } from "./icons";
+import { PlayIcon, PauseIcon, FSIcon, ExitFSIcon } from "./icons";
 import ProgressBar from "./ProgressBar";
+import { sec2time } from "./Utils";
 
 const TIME_TO_HIDE_CONTROLS = 4000;
 
-type Props = {};
-
-type State = {};
+type Props = {
+  play: Boolean;
+  fullScreen: Boolean;
+  duration: number;
+  currentTime: number;
+  playVideo: () => void;
+  pauseVideo: () => void;
+  seekTo: (t: number) => void;
+  toggleFS: () => void;
+};
 
 export default ({
   play,
@@ -18,9 +26,9 @@ export default ({
   seekTo,
   toggleFS,
   fullScreen
-}) => {
+}: Props) => {
   const [visible, setVisible] = useState(true);
-  const ref = useRef(0);
+  const ref: { current: any } = useRef(0);
   const hideControls = () => {
     if (ref.current !== 0) clearTimeout(ref.current);
     if (play) {
@@ -76,7 +84,11 @@ export default ({
               <Text style={styles.text}> {sec2time(currentTime)} </Text>
               <View style={styles.footerRight}>
                 <Text style={styles.text}> {sec2time(duration)} </Text>
-                <FSIcon size={16} onPress={toggleFS} />
+                {fullScreen ? (
+                  <ExitFSIcon size={16} onPress={toggleFS} />
+                ) : (
+                  <FSIcon size={16} onPress={toggleFS} />
+                )}
               </View>
             </View>
           </View>
@@ -129,18 +141,3 @@ const styles = StyleSheet.create({
     backgroundColor: "red"
   }
 });
-
-const sec2time = timeInSeconds => {
-  var pad = function(num, size) {
-      return ("000" + num).slice(size * -1);
-    },
-    time = parseFloat(timeInSeconds).toFixed(3),
-    hours = Math.floor(time / 60 / 60),
-    minutes = Math.floor(time / 60) % 60,
-    seconds = Math.floor(time - minutes * 60);
-
-  return `${hours > 0 ? pad(hours, 2) + ":" : ""} ${pad(minutes, 2)} :${pad(
-    seconds,
-    2
-  )}`;
-};

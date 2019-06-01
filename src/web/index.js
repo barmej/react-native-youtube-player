@@ -18,8 +18,8 @@ const onError = invoke.bind("onError");
 const onStateChange = invoke.bind("onStateChange");
 const onPlaybackRateChange = invoke.bind("onPlaybackRateChange");
 const onPlaybackQualityChange = invoke.bind("onPlaybackQualityChange");
-const setDuration = invoke.bind("setDuration");
-const setCurrentTime = invoke.bind("setCurrentTime");
+const onPlaying = invoke.bind("onPlaying");
+const onDurationReady = invoke.bind("onDurationReady");
 
 const _onStateChange = ({ data }) => {
   // in case first time playing ,
@@ -74,19 +74,16 @@ const seekTo = s => {
   player.seekTo(s).then(() => {});
 };
 
-const setSize = (width, height) => {
-  //player.setSize(width, height);
-};
 const _setDuration = () =>
   player.getDuration().then(s => {
     duration = s;
-    setDuration(s);
+    onDurationReady(s);
   });
 
 // send current time every 1000 ms
 const _setCurrentTime = () => {
   setInterval(() => {
-    if (!isPaused) player.getCurrentTime().then(s => setCurrentTime(s));
+    if (!isPaused) player.getCurrentTime().then(s => onPlaying(s));
   }, 500);
 };
 
@@ -96,6 +93,3 @@ invoke.define("createPlayer", createPlayer);
 invoke.define("playVideo", playVideo);
 invoke.define("pauseVideo", pauseVideo);
 invoke.define("seekTo", seekTo);
-invoke.define("setSize", setSize);
-
-//invoke.define("getDuration", getDuration);

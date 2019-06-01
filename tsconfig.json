@@ -8,7 +8,7 @@
     "allowUnusedLabels": false,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "jsx": "react",
+    "jsx": "react-native",
     "lib": ["esnext"],
     "module": "esnext",
     "moduleResolution": "node",
@@ -21,6 +21,7 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "esnext"
+    "target": "esnext",
+    "types": ["react", "react-native"]
   }
 }

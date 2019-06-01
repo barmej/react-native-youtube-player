@@ -3,6 +3,16 @@ import { StyleSheet, View } from "react-native";
 import Animated, { Easing } from "react-native-reanimated";
 import Slider from "@react-native-community/slider";
 
+type Props = {
+  value: number;
+  visible: Boolean;
+  fullScreen: Boolean;
+  duration: number;
+  playVideo: () => void;
+  pauseVideo: () => void;
+  seekTo: (t: number) => void;
+};
+
 export default ({
   value,
   visible,
@@ -11,7 +21,7 @@ export default ({
   pauseVideo,
   playVideo,
   fullScreen
-}) => (
+}: Props) => (
   <View style={[styles.container, { bottom: fullScreen ? 20 : 0 }]}>
     <Progress progress={value} />
     {visible && (
@@ -20,7 +30,7 @@ export default ({
         minimumValue={0}
         onSlidingStart={pauseVideo}
         onSlidingComplete={p => {
-          seekTo(parseInt(p * duration, 10));
+          seekTo(p * duration);
           playVideo();
         }}
         maximumValue={1}
@@ -33,7 +43,7 @@ export default ({
   </View>
 );
 
-const Progress = ({ progress }) => {
+const Progress = ({ progress }: { progress: number }) => {
   const ref = useRef(new Animated.Value(0));
   Animated.timing(ref.current, {
     toValue: progress,

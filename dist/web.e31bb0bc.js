@@ -1667,9 +1667,9 @@ var onPlaybackRateChange = _browser.default.bind("onPlaybackRateChange");
 
 var onPlaybackQualityChange = _browser.default.bind("onPlaybackQualityChange");
 
-var setDuration = _browser.default.bind("setDuration");
+var onPlaying = _browser.default.bind("onPlaying");
 
-var setCurrentTime = _browser.default.bind("setCurrentTime");
+var onDurationReady = _browser.default.bind("onDurationReady");
 
 var _onStateChange = function _onStateChange(_ref) {
   var data = _ref.data;
@@ -1726,13 +1726,10 @@ var seekTo = function seekTo(s) {
   player.seekTo(s).then(function () {});
 };
 
-var setSize = function setSize(width, height) {//player.setSize(width, height);
-};
-
 var _setDuration = function _setDuration() {
   return player.getDuration().then(function (s) {
     duration = s;
-    setDuration(s);
+    onDurationReady(s);
   });
 }; // send current time every 1000 ms
 
@@ -1740,7 +1737,7 @@ var _setDuration = function _setDuration() {
 var _setCurrentTime = function _setCurrentTime() {
   setInterval(function () {
     if (!isPaused) player.getCurrentTime().then(function (s) {
-      return setCurrentTime(s);
+      return onPlaying(s);
     });
   }, 500);
 }; // invoke functions
@@ -1753,8 +1750,6 @@ _browser.default.define("playVideo", playVideo);
 _browser.default.define("pauseVideo", pauseVideo);
 
 _browser.default.define("seekTo", seekTo);
-
-_browser.default.define("setSize", setSize); //invoke.define("getDuration", getDuration);
 },{"youtube-player":"../../node_modules/youtube-player/dist/index.js","react-native-webview-invoke/browser":"../../node_modules/react-native-webview-invoke/browser.js"}],"../../../../../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
