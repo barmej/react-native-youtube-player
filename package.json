@@ -1,6 +1,6 @@
 {
   "name": "react-native-yt-player",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Youtube Player for React Native",
   "main": "lib/mobile/commonjs/index.js",
   "react-native": "lib/mobile/module/index.js",
@@ -26,26 +26,25 @@
     "registry": "https://registry.npmjs.org/"
   },
   "keywords": [
-    "react-native-component",
-    "react-component",
+    "react-native-youtube",
+    "react-youtube",
     "react-native",
     "ios",
     "android",
     "tab",
-    "swipe",
-    "scrollable",
-    "coverflow"
+    "youtube-player",
+    "youtube"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/react-native-community/react-native-tab-view.git"
+    "url": "git+https://github.com/obytes/react-native-youtube-player.git"
   },
-  "author": "Satyajit Sahoo <satyajit.happy@gmail.com> (https://github.com/satya164/)",
+  "author": "Youssouf EL Azizi <youssoufelazizi@gmail.com> (https://github.com/yjose/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/react-native-community/react-native-tab-view/issues"
+    "url": "https://github.com/obytes/react-native-youtube-player/issues"
   },
-  "homepage": "https://github.com/react-native-community/react-native-tab-view#readme",
+  "homepage": "https://github.com/obytes/react-native-youtube-player#readme",
   "devDependencies": {
     "@commitlint/config-conventional": "^7.5.0",
     "@expo/vector-icons": "^9.0.0",
