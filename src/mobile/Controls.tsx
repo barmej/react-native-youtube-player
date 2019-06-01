@@ -1,5 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
-import { View, StyleSheet, TouchableWithoutFeedback, Text } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  Text,
+  ActivityIndicator
+} from "react-native";
 import { PlayIcon, PauseIcon, FSIcon, ExitFSIcon } from "./icons";
 import ProgressBar from "./ProgressBar";
 import { sec2time } from "./Utils";
@@ -8,6 +14,7 @@ const TIME_TO_HIDE_CONTROLS = 4000;
 
 type Props = {
   play: Boolean;
+  ready: Boolean;
   fullScreen: Boolean;
   duration: number;
   currentTime: number;
@@ -19,6 +26,7 @@ type Props = {
 
 export default ({
   play,
+  ready,
   duration,
   currentTime,
   playVideo,
@@ -62,24 +70,20 @@ export default ({
       </TouchableWithoutFeedback>
 
       {visible && (
-        <TouchableWithoutFeedback
-          onPress={() =>
-            hideAfterExecute(() => {
-              console.log("yess I am here ");
-            })()
-          }
-        >
+        <TouchableWithoutFeedback onPress={() => hideAfterExecute(() => {})()}>
           <View
             style={[
               styles.controls,
-              { paddingHorizontal: fullScreen ? 40 : 5 }
+              {
+                paddingHorizontal: fullScreen ? 40 : 5,
+                backgroundColor: ready ? "rgba(0,0,0,0.6)" : "#000"
+              }
             ]}
           >
-            {play ? (
-              <PauseIcon onPress={pauseVideo} />
-            ) : (
-              <PlayIcon onPress={playVideo} />
-            )}
+            {!ready && <ActivityIndicator size="small" color="#FFF" />}
+            {ready && play && <PauseIcon onPress={pauseVideo} />}
+            {ready && !play && <PlayIcon onPress={playVideo} />}
+
             <View style={[styles.footer, { bottom: fullScreen ? 30 : 10 }]}>
               <Text style={styles.text}> {sec2time(currentTime)} </Text>
               <View style={styles.footerRight}>

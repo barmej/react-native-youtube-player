@@ -39,7 +39,6 @@ export default class Player extends Component<Props, PlayerState> {
     this.setState({ currentTime });
   };
   onReady = () => {
-    console.log("ready");
     this.setState({ ready: true });
   };
   onError = () => {

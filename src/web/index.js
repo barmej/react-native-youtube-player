@@ -59,6 +59,7 @@ const createPlayer = opts => {
   player.on("stateChange", _onStateChange);
   player.on("playbackRateChange", onPlaybackRateChange);
   player.on("playbackQualityChange", onPlaybackQualityChange);
+  if (opts.playerVars && opts.playerVars.autoplay) playVideo();
 };
 
 //createPlayer({ videoId: "Z1LmpiIGYNs" });

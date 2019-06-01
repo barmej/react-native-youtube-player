@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "react-native-youtube-player": ["src/mobile/index"]
+      "react-native-yt-player": ["src/mobile/index"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,

@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+import { View } from "react-native";
 import createInvoke from "react-native-webview-invoke/native";
 import { WebView } from "react-native-webview";
 import { YTPlayerState, YTPlayerProps, YTPlayerDefaultProps } from "./types";
+const html = require("../../dist/index.html");
 
 export default class YTPlayer extends Component<YTPlayerProps> {
   static defaultProps = YTPlayerDefaultProps;
@@ -46,8 +48,11 @@ export default class YTPlayer extends Component<YTPlayerProps> {
         onMessage={this.invoke.listener}
         useWebKit
         allowsInlineMediaPlayback={true}
+        renderLoading={() => (
+          <View style={{ backgroundColor: "#000", height: 100, width: 100 }} />
+        )}
         mediaPlaybackRequiresUserAction={false}
-        source={{ uri: "http://localhost:1234" }}
+        source={html}
       />
     );
   }
