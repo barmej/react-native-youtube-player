@@ -5,7 +5,7 @@ module.exports = {
       "module-resolver",
       {
         alias: {
-          "react-native-youtube-player": "../src/mobile"
+          "react-native-yt-player": "../src/mobile"
         }
       }
     ]
