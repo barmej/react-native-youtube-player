@@ -3,7 +3,7 @@ import { View } from "react-native";
 import createInvoke from "react-native-webview-invoke/native";
 import { WebView } from "react-native-webview";
 import { YTPlayerState, YTPlayerProps, YTPlayerDefaultProps } from "./types";
-const html = require("../../dist/index.html");
+const html = require("../web/dist/index.html");
 
 export default class YTPlayer extends Component<YTPlayerProps> {
   static defaultProps = YTPlayerDefaultProps;
