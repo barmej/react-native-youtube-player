@@ -9,7 +9,15 @@ import PlayerView from "./YTPlayer";
 import { YTPlayerState, PlayerState, YTPlayerProps } from "./types";
 import { fullScreenInterpolate, VideoSize } from "./Utils";
 
-type Props = YTPlayerProps & {};
+type Props = YTPlayerProps & {
+  topBar?: ({
+    play,
+    fullScreen
+  }: {
+    play?: Boolean;
+    fullScreen?: Boolean;
+  }) => React.ReactNode;
+};
 
 export default class Player extends Component<Props, PlayerState> {
   constructor(props: Props) {
@@ -100,6 +108,7 @@ export default class Player extends Component<Props, PlayerState> {
   };
 
   render() {
+    console.log(this.props);
     const { fullScreen } = this.state;
     const { height, rotate, translateX, translateY } = fullScreenInterpolate(
       this._width,
@@ -109,7 +118,7 @@ export default class Player extends Component<Props, PlayerState> {
     const VideoStyle = fullScreen ? { ...styles.fullScreen } : styles.inline;
 
     const { playVideo, pauseVideo, seekTo, toggleFS } = this;
-    const { videoId, autoPlay } = this.props;
+    const { videoId, autoPlay, topBar } = this.props;
     const style: any = {
       ...VideoStyle,
       width: this._width,
@@ -134,7 +143,14 @@ export default class Player extends Component<Props, PlayerState> {
             onPlaying={this.onPlaying}
           />
           <PlayerControls
-            {...{ playVideo, seekTo, pauseVideo, toggleFS, ...this.state }}
+            {...{
+              playVideo,
+              seekTo,
+              pauseVideo,
+              toggleFS,
+              topBar,
+              ...this.state
+            }}
           />
         </Animated.View>
       </View>

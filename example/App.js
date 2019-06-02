@@ -18,11 +18,25 @@ const instructions = Platform.select({
 });
 
 type Props = {};
+
+const TopBar = ({ play, fullScreen }) => (
+  <View
+    style={{
+      //backgroundColor: "red",
+      height: 20,
+      width: "100%",
+      alignSelf: "center",
+      position: "absolute",
+      top: 0
+    }}
+  />
+);
+
 export default class App extends Component<Props> {
   render() {
     return (
       <View style={{ paddingTop: 60 }}>
-        <YoutubePlayer videoId="Z1LmpiIGYNs" autoPlay={false} />
+        <YoutubePlayer topBar={TopBar} videoId="Z1LmpiIGYNs" autoPlay={false} />
         <Text>
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quod
           laudantium id vitae similique consequuntur recusandae nostrum, ab

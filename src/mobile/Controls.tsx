@@ -22,10 +22,18 @@ type Props = {
   pauseVideo: () => void;
   seekTo: (t: number) => void;
   toggleFS: () => void;
+  topBar?: ({
+    play,
+    fullScreen
+  }: {
+    play?: Boolean;
+    fullScreen?: Boolean;
+  }) => React.ReactNode;
 };
 
 export default ({
   play,
+  topBar,
   ready,
   duration,
   currentTime,
@@ -80,6 +88,7 @@ export default ({
               }
             ]}
           >
+            {topBar && topBar({ play, fullScreen })}
             {!ready && <ActivityIndicator size="small" color="#FFF" />}
             {ready && play && <PauseIcon onPress={pauseVideo} />}
             {ready && !play && <PlayIcon onPress={playVideo} />}
