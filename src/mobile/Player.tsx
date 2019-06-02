@@ -77,7 +77,7 @@ export default class Player extends Component<Props, PlayerState> {
 
   goToFullScreen = () => {
     timing(this._width, {
-      toValue: VideoSize.fullScreen.width,
+      toValue: VideoSize.fullScreen.width + 2,
       duration: 200,
       easing: Easing.inOut(Easing.ease)
     }).start();
@@ -115,9 +115,9 @@ export default class Player extends Component<Props, PlayerState> {
       width: this._width,
       height,
       transform: [
-        { rotateZ: concat(rotate, "deg") },
+        { translateY },
         { translateX },
-        { translateY }
+        { rotateZ: concat(rotate, "deg") }
       ]
     };
 

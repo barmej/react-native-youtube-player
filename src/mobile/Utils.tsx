@@ -16,6 +16,8 @@ export const VideoSize = {
     width: innerHeight
   }
 };
+const dx = (VideoSize.inline.width - VideoSize.fullScreen.width) / 2;
+const dy = (VideoSize.fullScreen.width - VideoSize.inline.width) / 2;
 
 export const fullScreenInterpolate = (
   width: Animated.Value<number>,
@@ -37,12 +39,12 @@ export const fullScreenInterpolate = (
 
   const translateX = interpolate(width, {
     inputRange,
-    outputRange: [0, innerWidth / 2 + 30 - layout.top],
+    outputRange: [0, -dy - layout.left - 1],
     extrapolate: Extrapolate.CLAMP
   });
   const translateY = interpolate(width, {
     inputRange,
-    outputRange: [0, innerWidth / 2 + 30 - layout.left],
+    outputRange: [0, -dx - layout.top - 1],
     extrapolate: Extrapolate.CLAMP
   });
 
