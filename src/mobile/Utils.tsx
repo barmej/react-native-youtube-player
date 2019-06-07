@@ -2,7 +2,7 @@ import Animated from "react-native-reanimated";
 const { interpolate, Extrapolate } = Animated;
 import { Dimensions } from "react-native";
 
-const { width, height } = Dimensions.get("screen");
+const { width, height } = Dimensions.get("window");
 const innerHeight = width < height ? height : width;
 const innerWidth = width < height ? width : height;
 

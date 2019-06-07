@@ -1,13 +1,15 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import Animated, { Easing } from "react-native-reanimated";
 const { Value, timing, concat } = Animated;
 
-import { View, StatusBar } from "react-native";
+import { View, StatusBar, Platform } from "react-native";
 import styles from "./styles";
 import PlayerControls from "./Controls";
 import PlayerView from "./YTPlayer";
 import { YTPlayerState, PlayerState, YTPlayerProps } from "./types";
 import { fullScreenInterpolate, VideoSize } from "./Utils";
+
+const IsAndroid = Platform.OS === "android";
 
 type Props = YTPlayerProps & {
   topBar?: ({
@@ -24,6 +26,7 @@ export default class Player extends Component<Props, PlayerState> {
     super(props);
     this.state = {
       ready: false,
+      layoutReady: !IsAndroid,
       fullScreen: false,
       play: this.props.autoPlay,
       duration: 0,
@@ -97,25 +100,30 @@ export default class Player extends Component<Props, PlayerState> {
       duration: 200,
       easing: Easing.inOut(Easing.ease)
     }).start();
-    StatusBar.setHidden(false);
+    //StatusBar.setHidden(false);
   };
   onLayout = ({
     nativeEvent: {
       layout: { x, y }
     }
   }: any) => {
-    this.setState({ layout: { top: y, left: x } });
+    this.setState({ layoutReady: true, layout: { top: y, left: x } });
   };
 
   render() {
-    console.log(this.props);
     const { fullScreen } = this.state;
     const { height, rotate, translateX, translateY } = fullScreenInterpolate(
       this._width,
       this.state.layout
     );
 
-    const VideoStyle = fullScreen ? { ...styles.fullScreen } : styles.inline;
+    const VideoStyle = fullScreen
+      ? { ...styles.fullScreen }
+      : {
+          ...styles.inline
+        };
+
+    const AbsoluteStyle = IsAndroid ? { ...this.state.layout } : {};
 
     const { playVideo, pauseVideo, seekTo, toggleFS } = this;
     const { videoId, autoPlay, topBar } = this.props;
@@ -127,33 +135,64 @@ export default class Player extends Component<Props, PlayerState> {
         { translateY },
         { translateX },
         { rotateZ: concat(rotate, "deg") }
-      ]
+      ],
+      ...AbsoluteStyle
     };
 
-    return (
-      <View style={styles.wrapper} onLayout={this.onLayout}>
-        <Animated.View style={style}>
-          <PlayerView
-            videoId={videoId}
-            autoPlay={autoPlay}
-            ref={(player: any) => (this.player = player)}
-            onDurationReady={this.onDurationReady}
-            onReady={this.onReady}
-            onError={this.onError}
-            onPlaying={this.onPlaying}
-          />
-          <PlayerControls
-            {...{
-              playVideo,
-              seekTo,
-              pauseVideo,
-              toggleFS,
-              topBar,
-              ...this.state
-            }}
-          />
-        </Animated.View>
-      </View>
-    );
+    if (IsAndroid)
+      return (
+        <React.Fragment>
+          <View style={styles.wrapper} onLayout={this.onLayout} />
+          {this.state.layoutReady && (
+            <Animated.View style={style}>
+              <PlayerView
+                videoId={videoId}
+                autoPlay={autoPlay}
+                ref={(player: any) => (this.player = player)}
+                onDurationReady={this.onDurationReady}
+                onReady={this.onReady}
+                onError={this.onError}
+                onPlaying={this.onPlaying}
+              />
+              <PlayerControls
+                {...{
+                  playVideo,
+                  seekTo,
+                  pauseVideo,
+                  toggleFS,
+                  topBar,
+                  ...this.state
+                }}
+              />
+            </Animated.View>
+          )}
+        </React.Fragment>
+      );
+    else
+      return (
+        <View style={styles.wrapper} onLayout={this.onLayout}>
+          <Animated.View style={style}>
+            <PlayerView
+              videoId={videoId}
+              autoPlay={autoPlay}
+              ref={(player: any) => (this.player = player)}
+              onDurationReady={this.onDurationReady}
+              onReady={this.onReady}
+              onError={this.onError}
+              onPlaying={this.onPlaying}
+            />
+            <PlayerControls
+              {...{
+                playVideo,
+                seekTo,
+                pauseVideo,
+                toggleFS,
+                topBar,
+                ...this.state
+              }}
+            />
+          </Animated.View>
+        </View>
+      );
   }
 }

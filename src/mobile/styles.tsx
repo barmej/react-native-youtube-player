@@ -4,6 +4,8 @@ import { VideoSize } from "./Utils";
 const styles = StyleSheet.create({
   inline: {
     flex: 0,
+    zIndex: 99,
+    elevation: 99,
     backgroundColor: "#000",
     ...StyleSheet.absoluteFillObject
   },
@@ -12,7 +14,8 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     marginTop: 0,
     flex: 0,
-    zIndex: 99,
+    zIndex: 999,
+    elevation: 999,
     alignContent: "center",
     justifyContent: "center",
     backgroundColor: "#000"
@@ -29,9 +32,10 @@ const styles = StyleSheet.create({
   wrapper: {
     height: VideoSize.inline.height,
     width: VideoSize.inline.width,
-    zIndex: 99,
+    zIndex: 100,
     paddingTop: 30,
-    backgroundColor: "#000"
+    backgroundColor: "#000",
+    overflow: "visible"
   }
 });
 

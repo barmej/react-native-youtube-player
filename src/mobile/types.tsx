@@ -25,6 +25,7 @@ export type YTPlayerProps = {
 
 export type PlayerState = {
   ready: Boolean;
+  layoutReady: Boolean;
   fullScreen: Boolean;
   play: Boolean;
   duration: number;
