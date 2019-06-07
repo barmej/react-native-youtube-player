@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import Animated, { Easing } from "react-native-reanimated";
 const { Value, timing, concat } = Animated;
 
