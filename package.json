@@ -1,6 +1,6 @@
 {
   "name": "react-native-yt-player",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Youtube Player for React Native",
   "main": "lib/commonjs/mobile/index.js",
   "react-native": "lib/module/mobile/index.js",
@@ -13,7 +13,7 @@
   "scripts": {
     "test": "jest",
     "start:web": "parcel ./src/web/index.html",
-    "build:web": "parcel build ./src/web/index.html --out-dir ./src/web/dist",
+    "build:web": "rm -rf ./src/web/dist &&  rm -rf ./src/web/dist2 &&  parcel build ./src/web/index.html --out-dir ./src/web/dist && parcel build ./src/web/index2.js  --out-dir  ./src/web/dist2  ",
     "start:mobile": "yarn example start",
     "typescript": "tsc --noEmit",
     "lint": "eslint --ext .js,.ts,.tsx .",
@@ -46,6 +46,7 @@
   },
   "homepage": "https://github.com/obytes/react-native-youtube-player#readme",
   "devDependencies": {
+    "@babel/core": "^7.4.5",
     "@commitlint/config-conventional": "^7.5.0",
     "@expo/vector-icons": "^9.0.0",
     "@react-native-community/bob": "^0.4.1",
@@ -103,7 +104,7 @@
     "@react-native-community/slider": "^1.1.2",
     "react-native-reanimated": "^1.0.1",
     "react-native-webview": "^5.10.0",
-    "react-native-webview-invoke": "^0.5.0",
+    "react-native-webview-invoke": "git://github.com/yjose/react-native-webview-invoke.git#fix/android_issue",
     "youtube-player": "^5.5.2"
   }
 }

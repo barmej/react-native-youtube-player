@@ -9,6 +9,7 @@
 import React, { Component } from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import YoutubePlayer from "react-native-yt-player";
+import { WebView } from "react-native-webview";
 
 const instructions = Platform.select({
   ios: "Press Cmd+R to reload,\n" + "Cmd+D or shake for dev menu",
@@ -37,12 +38,14 @@ export default class App extends Component<Props> {
     return (
       <View style={{ paddingTop: 60 }}>
         <YoutubePlayer topBar={TopBar} videoId="Z1LmpiIGYNs" autoPlay={false} />
-        <Text>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quod
-          laudantium id vitae similique consequuntur recusandae nostrum, ab
-          mollitia a velit? Minus voluptatem blanditiis quis repellat fugiat vel
-          libero, fugit necessitatibus.
-        </Text>
+        <View style={{ elevation: 0 }}>
+          <Text>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quod
+            laudantium id vitae similique consequuntur recusandae nostrum, ab
+            mollitia a velit? Minus voluptatem blanditiis quis repellat fugiat
+            vel libero, fugit necessitatibus.
+          </Text>
+        </View>
       </View>
     );
   }

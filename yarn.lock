@@ -27,7 +27,7 @@
     semver "^5.4.1"
     source-map "^0.5.0"
 
-"@babel/core@^7.1.0", "@babel/core@^7.4.0":
+"@babel/core@^7.1.0", "@babel/core@^7.4.0", "@babel/core@^7.4.5":
   version "7.4.5"
   resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.4.5.tgz#081f97e8ffca65a9b4b0fdc7e274e703f000c06a"
   dependencies:
@@ -7197,9 +7197,9 @@ react-native-vector-icons@6.0.0:
     prop-types "^15.6.2"
     yargs "^8.0.2"
 
-react-native-webview-invoke@^0.5.0:
+"react-native-webview-invoke@git://github.com/yjose/react-native-webview-invoke.git#fix/android_issue":
   version "0.5.0"
-  resolved "https://registry.yarnpkg.com/react-native-webview-invoke/-/react-native-webview-invoke-0.5.0.tgz#3360cf2f165272dfdb870248e773378c27e0b12d"
+  resolved "git://github.com/yjose/react-native-webview-invoke.git#0b9d9ee85c0cd4a47626c03f8de53c596dd67e4a"
 
 react-native-webview@^5.10.0:
   version "5.10.0"
