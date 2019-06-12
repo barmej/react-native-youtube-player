@@ -24,7 +24,6 @@ export const fullScreenInterpolate = (
   layout: { top: number; left: number }
 ) => {
   const inputRange = [VideoSize.inline.width, VideoSize.fullScreen.width];
-  console.log(layout);
 
   const rotate = interpolate(width, {
     inputRange,

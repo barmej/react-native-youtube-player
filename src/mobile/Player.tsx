@@ -42,6 +42,7 @@ export default class Player extends Component<PlayerProps, PlayerState> {
   onDurationReady = (duration: number) => {
     this.setState({ duration });
     this.props.onDurationReady(duration);
+    this.props.onStart();
   };
 
   onPlaying = (currentTime: number) => {
@@ -54,11 +55,18 @@ export default class Player extends Component<PlayerProps, PlayerState> {
   };
   onError = () => {
     this.props.onError();
-    //console.log("error");
+  };
+  onEnd = () => {
+    const { onEnd, loop } = this.props;
+    onEnd();
+    if (loop) {
+      this.seekTo(0);
+      this.playVideo();
+    }
   };
 
   onStateChange = (state: YTWebViewState) => {
-    if (state === YTWebViewState.ENDED) this.props.onEnd();
+    if (state === YTWebViewState.ENDED) this.onEnd();
     this.props.onStateChange(state);
   };
   onPlaybackRateChange = () => {};

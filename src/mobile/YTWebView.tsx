@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { View } from "react-native";
 import createInvoke from "react-native-webview-invoke/native";
 import { WebView } from "react-native-webview";
 import { YTWebViewState, YTWebViewProps, YTWebViewDefaultProps } from "./types";
@@ -55,9 +54,10 @@ export default class YTWebView extends Component<YTWebViewProps> {
         useWebKit
         originWhitelist={["*"]}
         allowsInlineMediaPlayback={true}
-        renderLoading={() => (
-          <View style={{ backgroundColor: "#000", height: 100, width: 100 }} />
-        )}
+        // startInLoadingState
+        // renderLoading={() => (
+        //   <View style={{ backgroundColor: "#000", height: 100, width: 100 }} />
+        // )}
         mediaPlaybackRequiresUserAction={false}
         source={{ html, baseUrl: "https://youtube.com" }}
       />

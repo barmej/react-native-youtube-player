@@ -23,15 +23,13 @@ type Props = {};
 const TopBar = ({ play, fullScreen }) => (
   <View
     style={{
-      backgroundColor: "red",
-      height: 20,
-      width: "100%",
       alignSelf: "center",
       position: "absolute",
       top: 0
-      //elevation: 100
     }}
-  />
+  >
+    <Text style={{ color: "#FFF" }}> top bar</Text>
+  </View>
 );
 
 export default class App extends Component<Props> {
@@ -40,18 +38,20 @@ export default class App extends Component<Props> {
   };
 
   onFullScreen = fullScreen => {
-    console.log("fullscreen ");
+    console.log("fullscreen ", fullScreen);
 
-    this.setState({ fullScreen });
+    //this.setState({ fullScreen });
   };
   render() {
     return (
       <View style={{ paddingTop: 60 }}>
         <YoutubePlayer
-          // onFullScreen={this.onFullScreen}
+          onFullScreen={this.onFullScreen}
+          onStart={() => console.log("onStart")}
+          loop
           topBar={TopBar}
           videoId="Z1LmpiIGYNs"
-          autoPlay={false}
+          autoPlay
         />
 
         <View

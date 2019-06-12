@@ -52,6 +52,7 @@ export const YTWebViewDefaultProps = {
 };
 
 export interface PlayerProps extends YTWebViewProps {
+  loop: Boolean;
   topBar?: ({
     play,
     fullScreen
@@ -60,10 +61,12 @@ export interface PlayerProps extends YTWebViewProps {
     fullScreen?: Boolean;
   }) => React.ReactNode;
   onFullScreen?: (fullscreen: Boolean) => void;
+  onStart?: () => void;
 }
 
 export const PlayerDefaultProps = {
   ...YTWebViewDefaultProps,
   onFullScreen: () => {},
-  play: false
+  loop: false,
+  onStart: () => {}
 };

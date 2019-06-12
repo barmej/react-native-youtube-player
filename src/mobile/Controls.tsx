@@ -47,7 +47,7 @@ export default ({
   const ref: { current: any } = useRef(0);
   const hideControls = () => {
     if (ref.current !== 0) clearTimeout(ref.current);
-    if (play) {
+    if (play && ready) {
       ref.current = setTimeout(() => {
         setVisible(false);
       }, TIME_TO_HIDE_CONTROLS);
@@ -62,7 +62,7 @@ export default ({
     return () => {
       clearTimeout(ref.current);
     };
-  }, [play]);
+  }, [play, ready]);
   const progress =
     currentTime !== 0 && duration !== 0 ? currentTime / duration : 0;
 
