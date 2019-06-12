@@ -23,27 +23,48 @@ type Props = {};
 const TopBar = ({ play, fullScreen }) => (
   <View
     style={{
-      //backgroundColor: "red",
+      backgroundColor: "red",
       height: 20,
       width: "100%",
       alignSelf: "center",
       position: "absolute",
       top: 0
+      //elevation: 100
     }}
   />
 );
 
 export default class App extends Component<Props> {
+  state = {
+    fullScreen: false
+  };
+
+  onFullScreen = fullScreen => {
+    console.log("fullscreen ");
+
+    this.setState({ fullScreen });
+  };
   render() {
     return (
       <View style={{ paddingTop: 60 }}>
-        <YoutubePlayer topBar={TopBar} videoId="Z1LmpiIGYNs" autoPlay={false} />
-        <View style={{ elevation: 0 }}>
+        <YoutubePlayer
+          // onFullScreen={this.onFullScreen}
+          topBar={TopBar}
+          videoId="Z1LmpiIGYNs"
+          autoPlay={false}
+        />
+
+        <View
+          style={{
+            height: this.state.fullScreen ? 0 : "auto",
+            overflow: "hidden"
+          }}
+        >
           <Text>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quod
-            laudantium id vitae similique consequuntur recusandae nostrum, ab
-            mollitia a velit? Minus voluptatem blanditiis quis repellat fugiat
-            vel libero, fugit necessitatibus.
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Commodi,
+            aspernatur rerum, deserunt cumque ipsam unde nam voluptatum tenetur
+            cupiditate veritatis autem quidem ad repudiandae sapiente odit
+            voluptates fugit placeat ut!
           </Text>
         </View>
       </View>

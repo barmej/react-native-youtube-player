@@ -1,4 +1,4 @@
-export enum YTPlayerState {
+export enum YTWebViewState {
   UNSTARTED = -1,
   ENDED = 0,
   PLAYING = 1,
@@ -7,23 +7,23 @@ export enum YTPlayerState {
   CUED = 5
 }
 
-export type YTPlayerProps = {
+export interface YTWebViewProps {
   videoId: string;
-  autoPlay: Boolean;
-  style: {};
-  onReady: () => void;
-  onError: () => void;
-  onPlay: () => void;
-  onPlaying: (s: number) => void;
-  onPause: () => void;
-  onEnd: () => void;
-  onDurationReady: (s: number) => void;
-  onStateChange: (s: YTPlayerState) => void;
-  onPlaybackRateChange: () => void;
-  onPlaybackQualityChange: () => void;
-};
+  autoPlay?: Boolean;
+  style?: {};
+  onReady?: () => void;
+  onError?: () => void;
+  onPlay?: () => void;
+  onPlaying?: (s: number) => void;
+  onPause?: () => void;
+  onEnd?: () => void;
+  onDurationReady?: (s: number) => void;
+  onStateChange?: (s: YTWebViewState) => void;
+  onPlaybackRateChange?: () => void;
+  onPlaybackQualityChange?: () => void;
+}
 
-export type PlayerState = {
+export interface PlayerState {
   ready: Boolean;
   layoutReady: Boolean;
   fullScreen: Boolean;
@@ -34,10 +34,11 @@ export type PlayerState = {
     top: number;
     left: number;
   };
-};
+}
 
-export const YTPlayerDefaultProps = {
+export const YTWebViewDefaultProps = {
   style: {},
+  autoPlay: false,
   onReady: () => {},
   onError: () => {},
   onPlay: () => {},
@@ -48,4 +49,21 @@ export const YTPlayerDefaultProps = {
   onStateChange: () => {},
   onPlaybackRateChange: () => {},
   onPlaybackQualityChange: () => {}
+};
+
+export interface PlayerProps extends YTWebViewProps {
+  topBar?: ({
+    play,
+    fullScreen
+  }: {
+    play?: Boolean;
+    fullScreen?: Boolean;
+  }) => React.ReactNode;
+  onFullScreen?: (fullscreen: Boolean) => void;
+}
+
+export const PlayerDefaultProps = {
+  ...YTWebViewDefaultProps,
+  onFullScreen: () => {},
+  play: false
 };

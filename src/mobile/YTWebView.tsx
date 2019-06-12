@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { View } from "react-native";
 import createInvoke from "react-native-webview-invoke/native";
 import { WebView } from "react-native-webview";
-import { YTPlayerState, YTPlayerProps, YTPlayerDefaultProps } from "./types";
+import { YTWebViewState, YTWebViewProps, YTWebViewDefaultProps } from "./types";
 
-export default class YTPlayer extends Component<YTPlayerProps> {
-  static defaultProps = YTPlayerDefaultProps;
+export default class YTWebView extends Component<YTWebViewProps> {
+  static defaultProps = { ...YTWebViewDefaultProps };
   webview: any;
   invoke = createInvoke(() => this.webview);
   _createPlayer = this.invoke.bind("createPlayer");
@@ -15,11 +15,18 @@ export default class YTPlayer extends Component<YTPlayerProps> {
 
   invokeFunctions = () => {
     // invoke fuctions
-    this.invoke.define("onReady", this.props.onReady);
-    this.invoke.define("onError", this.props.onError);
-    this.invoke.define("onStateChange", this.props.onStateChange);
-    this.invoke.define("onPlaying", this.props.onPlaying);
-    this.invoke.define("onDurationReady", this.props.onDurationReady);
+    const {
+      onReady,
+      onError,
+      onStateChange,
+      onPlaying,
+      onDurationReady
+    } = this.props;
+    this.invoke.define("onReady", onReady);
+    this.invoke.define("onError", onError);
+    this.invoke.define("onStateChange", onStateChange);
+    this.invoke.define("onPlaying", onPlaying);
+    this.invoke.define("onDurationReady", onDurationReady);
   };
 
   componentDidMount = async () => {
@@ -35,8 +42,8 @@ export default class YTPlayer extends Component<YTPlayerProps> {
     if (autoPlay) await this._playVideo();
   };
 
-  onStateChange = (state: YTPlayerState) => {
-    if (state === YTPlayerState.ENDED) this.props.onEnd();
+  onStateChange = (state: YTWebViewState) => {
+    if (state === YTWebViewState.ENDED) this.props.onEnd();
     this.props.onStateChange(state);
   };
 

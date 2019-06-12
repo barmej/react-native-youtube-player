@@ -5,24 +5,21 @@ const { Value, timing, concat } = Animated;
 import { View, StatusBar, Platform } from "react-native";
 import styles from "./styles";
 import PlayerControls from "./Controls";
-import PlayerView from "./YTPlayer";
-import { YTPlayerState, PlayerState, YTPlayerProps } from "./types";
+import PlayerView from "./YTWebView";
+import {
+  YTWebViewState,
+  PlayerState,
+  PlayerProps,
+  PlayerDefaultProps
+} from "./types";
 import { fullScreenInterpolate, VideoSize } from "./Utils";
 
 const IsAndroid = Platform.OS === "android";
 
-type Props = YTPlayerProps & {
-  topBar?: ({
-    play,
-    fullScreen
-  }: {
-    play?: Boolean;
-    fullScreen?: Boolean;
-  }) => React.ReactNode;
-};
+export default class Player extends Component<PlayerProps, PlayerState> {
+  static defaultProps = PlayerDefaultProps;
 
-export default class Player extends Component<Props, PlayerState> {
-  constructor(props: Props) {
+  constructor(props: PlayerProps) {
     super(props);
     this.state = {
       ready: false,
@@ -44,23 +41,25 @@ export default class Player extends Component<Props, PlayerState> {
   // listeners
   onDurationReady = (duration: number) => {
     this.setState({ duration });
+    this.props.onDurationReady(duration);
   };
 
   onPlaying = (currentTime: number) => {
     this.setState({ currentTime });
+    this.props.onPlaying(currentTime);
   };
   onReady = () => {
     this.setState({ ready: true });
+    this.props.onReady();
   };
   onError = () => {
-    console.log("error");
+    this.props.onError();
+    //console.log("error");
   };
-  onEnded = () => {
-    this.seekTo(0);
-    this.pauseVideo();
-  };
-  onStateChange = (state: YTPlayerState) => {
-    if (state === YTPlayerState.ENDED) this.onEnded();
+
+  onStateChange = (state: YTWebViewState) => {
+    if (state === YTWebViewState.ENDED) this.props.onEnd();
+    this.props.onStateChange(state);
   };
   onPlaybackRateChange = () => {};
   onPlaybackQualityChange = () => {};
@@ -81,9 +80,11 @@ export default class Player extends Component<Props, PlayerState> {
 
   toggleFS = () => {
     const { fullScreen } = this.state;
+    const { onFullScreen } = this.props;
     this.setState({ fullScreen: !fullScreen });
     if (fullScreen) this.goToInlineScreen();
     else this.goToFullScreen();
+    onFullScreen(!fullScreen);
   };
 
   goToFullScreen = () => {
@@ -91,16 +92,14 @@ export default class Player extends Component<Props, PlayerState> {
       toValue: VideoSize.fullScreen.width + 2,
       duration: 200,
       easing: Easing.inOut(Easing.ease)
-    }).start();
-    StatusBar.setHidden(true);
+    }).start(() => StatusBar.setHidden(true));
   };
   goToInlineScreen = () => {
     timing(this._width, {
       toValue: VideoSize.inline.width,
       duration: 200,
       easing: Easing.inOut(Easing.ease)
-    }).start();
-    //StatusBar.setHidden(false);
+    }).start(() => StatusBar.setHidden(false));
   };
   onLayout = ({
     nativeEvent: {
@@ -134,7 +133,7 @@ export default class Player extends Component<Props, PlayerState> {
       transform: [
         { translateY },
         { translateX },
-        { rotateZ: concat(rotate, "deg") }
+        { rotateZ: concat(rotate as any, "deg" as any) }
       ],
       ...AbsoluteStyle
     };
@@ -144,7 +143,7 @@ export default class Player extends Component<Props, PlayerState> {
         <React.Fragment>
           <View style={styles.wrapper} onLayout={this.onLayout} />
           {this.state.layoutReady && (
-            <Animated.View style={style}>
+            <Animated.View style={style} removeClippedSubviews={true}>
               <PlayerView
                 videoId={videoId}
                 autoPlay={autoPlay}

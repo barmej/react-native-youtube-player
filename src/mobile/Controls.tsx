@@ -10,7 +10,7 @@ import { PlayIcon, PauseIcon, FSIcon, ExitFSIcon } from "./icons";
 import ProgressBar from "./ProgressBar";
 import { sec2time } from "./Utils";
 
-const TIME_TO_HIDE_CONTROLS = 4000;
+const TIME_TO_HIDE_CONTROLS = 2000;
 
 type Props = {
   play: Boolean;
@@ -119,9 +119,11 @@ const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
     width: "100%"
+    //elevation: 11
   },
   upperView: {
-    ...StyleSheet.absoluteFillObject
+    ...StyleSheet.absoluteFillObject,
+    elevation: 11
   },
   controls: {
     ...StyleSheet.absoluteFillObject,

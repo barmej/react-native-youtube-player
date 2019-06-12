@@ -26,7 +26,7 @@ export default ({
     <Progress progress={value} />
     {visible && (
       <Slider
-        style={[styles.progress, { zIndex: 99 }]}
+        style={[styles.progress, { zIndex: 99, elevation: 99 }]}
         minimumValue={0}
         onSlidingStart={pauseVideo}
         onSlidingComplete={p => {

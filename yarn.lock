@@ -7197,6 +7197,10 @@ react-native-vector-icons@6.0.0:
     prop-types "^15.6.2"
     yargs "^8.0.2"
 
+react-native-view-overflow@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/react-native-view-overflow/-/react-native-view-overflow-0.0.4.tgz#36b2c00fbe7f270a0a92548eeb9ee147d2a4c3ae"
+
 "react-native-webview-invoke@git://github.com/yjose/react-native-webview-invoke.git#fix/android_issue":
   version "0.5.0"
   resolved "git://github.com/yjose/react-native-webview-invoke.git#0b9d9ee85c0cd4a47626c03f8de53c596dd67e4a"
