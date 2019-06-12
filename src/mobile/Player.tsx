@@ -66,7 +66,6 @@ export default class Player extends Component<PlayerProps, PlayerState> {
   };
 
   onStateChange = (state: YTWebViewState) => {
-    if (state === YTWebViewState.ENDED) this.onEnd();
     this.props.onStateChange(state);
   };
   onPlaybackRateChange = () => {};
@@ -187,6 +186,7 @@ export default class Player extends Component<PlayerProps, PlayerState> {
               onReady={this.onReady}
               onError={this.onError}
               onPlaying={this.onPlaying}
+              onEnd={this.onEnd}
             />
             <PlayerControls
               {...{

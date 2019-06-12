@@ -14,17 +14,12 @@ export default class YTWebView extends Component<YTWebViewProps> {
 
   invokeFunctions = () => {
     // invoke fuctions
-    const {
-      onReady,
-      onError,
-      onStateChange,
-      onPlaying,
-      onDurationReady
-    } = this.props;
+    const { onReady, onError, onPlaying, onDurationReady, onEnd } = this.props;
     this.invoke.define("onReady", onReady);
     this.invoke.define("onError", onError);
-    this.invoke.define("onStateChange", onStateChange);
+    this.invoke.define("onStateChange", this.onStateChange);
     this.invoke.define("onPlaying", onPlaying);
+    this.invoke.define("onEnd", onEnd);
     this.invoke.define("onDurationReady", onDurationReady);
   };
 
@@ -59,6 +54,7 @@ export default class YTWebView extends Component<YTWebViewProps> {
         //   <View style={{ backgroundColor: "#000", height: 100, width: 100 }} />
         // )}
         mediaPlaybackRequiresUserAction={false}
+        //source={{ uri: "http://localhost:1234/" }}
         source={{ html, baseUrl: "https://youtube.com" }}
       />
     );
