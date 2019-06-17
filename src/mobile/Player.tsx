@@ -36,7 +36,7 @@ export default class Player extends Component<PlayerProps, PlayerState> {
   }
   player: any;
 
-  _width = new Value(VideoSize.inline.width + 2);
+  _width = new Value(VideoSize.inline.width);
 
   // listeners
   onDurationReady = (duration: number) => {
