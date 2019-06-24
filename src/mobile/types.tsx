@@ -60,6 +60,7 @@ export interface PlayerProps extends YTWebViewProps {
     play?: Boolean;
     fullScreen?: Boolean;
   }) => React.ReactNode;
+  showFullScreenButton?: Boolean;
   onFullScreen?: (fullscreen: Boolean) => void;
   onStart?: () => void;
 }
@@ -68,5 +69,6 @@ export const PlayerDefaultProps = {
   ...YTWebViewDefaultProps,
   onFullScreen: () => {},
   loop: false,
+  showFullScreenButton: true,
   onStart: () => {}
 };

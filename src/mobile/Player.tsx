@@ -214,7 +214,7 @@ export default class Player extends Component<PlayerProps, PlayerState> {
     const AbsoluteStyle = IsAndroid ? { ...this.state.layout } : {};
 
     const { playVideo, pauseVideo, seekTo, toggleFS } = this;
-    const { videoId, autoPlay, topBar } = this.props;
+    const { videoId, autoPlay, topBar, showFullScreenButton } = this.props;
     const style: any = {
       ...VideoStyle,
       ...AbsoluteStyle,
@@ -250,6 +250,7 @@ export default class Player extends Component<PlayerProps, PlayerState> {
                   pauseVideo,
                   toggleFS,
                   topBar,
+                  showFullScreenButton,
                   ...this.state
                 }}
               />

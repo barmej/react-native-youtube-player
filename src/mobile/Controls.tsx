@@ -15,6 +15,7 @@ const TIME_TO_HIDE_CONTROLS = 2000;
 type Props = {
   play: Boolean;
   ready: Boolean;
+  showFullScreenButton?: Boolean;
   fullScreen: Boolean;
   duration: number;
   currentTime: number;
@@ -41,7 +42,8 @@ export default ({
   pauseVideo,
   seekTo,
   toggleFS,
-  fullScreen
+  fullScreen,
+  showFullScreenButton
 }: Props) => {
   const [visible, setVisible] = useState(true);
   const ref: { current: any } = useRef(0);
@@ -98,10 +100,14 @@ export default ({
               <Text style={styles.text}> {sec2time(currentTime)} </Text>
               <View style={styles.footerRight}>
                 <Text style={styles.text}> {sec2time(duration)} </Text>
-                {fullScreen ? (
-                  <ExitFSIcon size={16} onPress={toggleFS} />
-                ) : (
-                  <FSIcon size={16} onPress={toggleFS} />
+                {showFullScreenButton && (
+                  <React.Fragment>
+                    {fullScreen ? (
+                      <ExitFSIcon size={16} onPress={toggleFS} />
+                    ) : (
+                      <FSIcon size={16} onPress={toggleFS} />
+                    )}
+                  </React.Fragment>
                 )}
               </View>
             </View>
