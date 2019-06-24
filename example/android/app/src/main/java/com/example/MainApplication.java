@@ -5,6 +5,7 @@ import android.webkit.WebView;
 
 
 import com.facebook.react.ReactApplication;
+import com.github.yamill.orientation.OrientationPackage;
 import com.reactnativecommunity.slider.ReactSliderPackage;
 import com.swmansion.reanimated.ReanimatedPackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
@@ -28,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new OrientationPackage(),
             new ReactSliderPackage(),
             new ReanimatedPackage(),
             new RNCWebViewPackage()

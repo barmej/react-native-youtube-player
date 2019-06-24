@@ -40,7 +40,7 @@ export default class App extends Component<Props> {
   onFullScreen = fullScreen => {
     console.log("fullscreen ", fullScreen);
 
-    //this.setState({ fullScreen });
+    this.setState({ fullScreen });
   };
   render() {
     return (
@@ -54,12 +54,7 @@ export default class App extends Component<Props> {
           autoPlay
         />
 
-        <View
-          style={{
-            height: this.state.fullScreen ? 0 : "auto",
-            overflow: "hidden"
-          }}
-        >
+        <View>
           <Text>
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Commodi,
             aspernatur rerum, deserunt cumque ipsam unde nam voluptatum tenetur
