@@ -1,8 +1,14 @@
 import React, { Component } from "react";
 import Animated, { Easing } from "react-native-reanimated";
-const { Value, timing, concat } = Animated;
+const { Value, timing } = Animated;
 
-import { View, StatusBar, Platform } from "react-native";
+import {
+  View,
+  StatusBar,
+  Platform,
+  Dimensions,
+  BackHandler
+} from "react-native";
 import styles from "./styles";
 import PlayerControls from "./Controls";
 import PlayerView from "./YTWebView";
@@ -13,6 +19,7 @@ import {
   PlayerDefaultProps
 } from "./types";
 import { fullScreenInterpolate, VideoSize } from "./Utils";
+import Orientation from "react-native-orientation";
 
 const IsAndroid = Platform.OS === "android";
 
@@ -37,6 +44,19 @@ export default class Player extends Component<PlayerProps, PlayerState> {
   player: any;
 
   _width = new Value(VideoSize.inline.width);
+
+  componentDidMount() {
+    Dimensions.addEventListener("change", this.onRotated);
+    BackHandler.addEventListener("hardwareBackPress", this.onBackButtonClick);
+  }
+
+  componentWillUnmount() {
+    Dimensions.removeEventListener("change", this.onRotated);
+    BackHandler.removeEventListener(
+      "hardwareBackPress",
+      this.onBackButtonClick
+    );
+  }
 
   // listeners
   onDurationReady = (duration: number) => {
@@ -85,16 +105,77 @@ export default class Player extends Component<PlayerProps, PlayerState> {
     this.player._pauseVideo();
   };
 
+  // toggleFS = () => {
+  //   const { fullScreen } = this.state;
+  //   const { onFullScreen } = this.props;
+  //   this.setState({ fullScreen: !fullScreen });
+  //   if (fullScreen) this.goToInlineScreen();
+  //   else this.goToFullScreen();
+  //   onFullScreen(!fullScreen);
+  // };
+
   toggleFS = () => {
-    const { fullScreen } = this.state;
-    const { onFullScreen } = this.props;
-    this.setState({ fullScreen: !fullScreen });
-    if (fullScreen) this.goToInlineScreen();
-    else this.goToFullScreen();
-    onFullScreen(!fullScreen);
+    const rotateToFullScreen = true;
+    this.setState({ fullScreen: !this.state.fullScreen }, () => {
+      if (this.state.fullScreen) {
+        this.props.onFullScreen(this.state.fullScreen);
+        if (rotateToFullScreen) Orientation.lockToLandscapeRight();
+        this.goToFullScreen();
+      } else {
+        this.props.onFullScreen(this.state.fullScreen);
+        if (rotateToFullScreen) Orientation.lockToPortrait();
+        this.goToInlineScreen();
+        setTimeout(() => {
+          if (true) Orientation.unlockAllOrientations();
+        }, 1500);
+      }
+    });
+  };
+
+  onRotated = ({ window: { width, height } }) => {
+    // Add this condition incase if inline and fullscreen options are turned on
+    //if (this.props.inlineOnly) return
+    const orientation = width > height ? "LANDSCAPE" : "PORTRAIT";
+    const rotateToFullScreen = true;
+    if (rotateToFullScreen) {
+      if (orientation === "LANDSCAPE") {
+        if (this.state.fullScreen) return;
+        this.setState({ fullScreen: true }, () => {
+          this.goToFullScreen();
+          this.props.onFullScreen(this.state.fullScreen);
+        });
+        return;
+      }
+      if (orientation === "PORTRAIT") {
+        if (!this.state.fullScreen) return;
+
+        this.setState(
+          {
+            fullScreen: false
+          },
+          () => {
+            this.goToInlineScreen();
+            this.props.onFullScreen(this.state.fullScreen);
+          }
+        );
+        return;
+      }
+    } else {
+      this.goToInlineScreen();
+    }
+    if (this.state.fullScreen) this.goToFullScreen();
+  };
+  onBackButtonClick = () => {
+    if (this.state.fullScreen) {
+      this.toggleFS();
+      return true;
+    }
+
+    return false;
   };
 
   goToFullScreen = () => {
+    this.props.onFullScreen(true);
     timing(this._width, {
       toValue: VideoSize.fullScreen.width + 2,
       duration: 200,
@@ -102,6 +183,7 @@ export default class Player extends Component<PlayerProps, PlayerState> {
     }).start(() => StatusBar.setHidden(true));
   };
   goToInlineScreen = () => {
+    this.props.onFullScreen(false);
     timing(this._width, {
       toValue: VideoSize.inline.width,
       duration: 200,
@@ -118,7 +200,7 @@ export default class Player extends Component<PlayerProps, PlayerState> {
 
   render() {
     const { fullScreen } = this.state;
-    const { height, rotate, translateX, translateY } = fullScreenInterpolate(
+    const { height, top, left } = fullScreenInterpolate(
       this._width,
       this.state.layout
     );
@@ -135,16 +217,17 @@ export default class Player extends Component<PlayerProps, PlayerState> {
     const { videoId, autoPlay, topBar } = this.props;
     const style: any = {
       ...VideoStyle,
+      ...AbsoluteStyle,
       width: this._width,
       height,
-      transform: [
-        { translateY },
-        { translateX },
-        { rotateZ: concat(rotate as any, "deg" as any) }
-      ],
-      ...AbsoluteStyle
+      top,
+      left
+      // transform: [
+      //   { translateY },
+      //   { translateX },
+      //   { rotateZ: concat(rotate as any, "deg" as any) }
+      // ],
     };
-
     if (IsAndroid)
       return (
         <React.Fragment>

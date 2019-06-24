@@ -69,6 +69,7 @@ export default ({
   return (
     <View
       style={[styles.container, { paddingHorizontal: fullScreen ? 40 : 0 }]}
+      pointerEvents="auto"
     >
       <TouchableWithoutFeedback
         onPress={() => hideAfterExecute(setVisible)(true)}
@@ -118,8 +119,8 @@ export default ({
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
-    width: "100%"
-    //elevation: 11
+
+    elevation: 999
   },
   upperView: {
     ...StyleSheet.absoluteFillObject,

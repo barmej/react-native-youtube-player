@@ -76,7 +76,8 @@
     "react-native-reanimated": "*",
     "react-native-webview": "^5.10.0",
     "react-native-webview-invoke": "^0.5.0",
-    "youtube-player": "^5.5.2"
+    "youtube-player": "^5.5.2",
+    "react-native-orientation": "^3.1.3"
   },
   "husky": {
     "hooks": {
@@ -102,6 +103,7 @@
   },
   "dependencies": {
     "@react-native-community/slider": "^1.1.2",
+    "react-native-orientation": "^3.1.3",
     "react-native-reanimated": "^1.0.1",
     "react-native-webview": "^5.10.0",
     "react-native-webview-invoke": "git://github.com/yjose/react-native-webview-invoke.git#fix/android_issue",
