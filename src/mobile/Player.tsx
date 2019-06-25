@@ -242,6 +242,7 @@ export default class Player extends Component<PlayerProps, PlayerState> {
                 onReady={this.onReady}
                 onError={this.onError}
                 onPlaying={this.onPlaying}
+                onEnd={this.onEnd}
               />
               <PlayerControls
                 {...{

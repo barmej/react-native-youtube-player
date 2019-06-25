@@ -48,10 +48,11 @@ export default class App extends Component<Props> {
         <YoutubePlayer
           onFullScreen={this.onFullScreen}
           onStart={() => console.log("onStart")}
+          onEnd={() => alert("on End")}
           loop
           topBar={TopBar}
           videoId="Z1LmpiIGYNs"
-          autoPlay
+          //autoPlay
         />
 
         <View>
