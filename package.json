@@ -1,6 +1,6 @@
 {
   "name": "react-native-yt-player",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Youtube Player for React Native",
   "main": "lib/commonjs/mobile/index.js",
   "react-native": "lib/module/mobile/index.js",
