@@ -279,6 +279,7 @@ export default class Player extends Component<PlayerProps, PlayerState> {
                 pauseVideo,
                 toggleFS,
                 topBar,
+                showFullScreenButton,
                 ...this.state
               }}
             />
