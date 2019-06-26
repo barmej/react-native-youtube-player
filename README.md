@@ -4,7 +4,8 @@ A cross-platform Youtube Player component for React Native Built using the offic
 
 ## DEMO
 
-![Demo]https://raw.githubusercontent.com/barmej/react-native-youtube-player/master/demo.gif)
+
+![Demo](https://raw.githubusercontent.com/barmej/react-native-youtube-player/master/demo.gif)
 
 ## Features
 
