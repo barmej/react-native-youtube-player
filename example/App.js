@@ -9,16 +9,6 @@
 import React, { Component } from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import YoutubePlayer from "react-native-yt-player";
-import { WebView } from "react-native-webview";
-
-const instructions = Platform.select({
-  ios: "Press Cmd+R to reload,\n" + "Cmd+D or shake for dev menu",
-  android:
-    "Double tap R on your keyboard to reload,\n" +
-    "Shake or press menu button for dev menu"
-});
-
-type Props = {};
 
 const TopBar = ({ play, fullScreen }) => (
   <View
@@ -39,20 +29,19 @@ export default class App extends Component<Props> {
 
   onFullScreen = fullScreen => {
     console.log("fullscreen ", fullScreen);
-
     this.setState({ fullScreen });
   };
   render() {
     return (
       <View style={{ paddingTop: 60 }}>
         <YoutubePlayer
-          onFullScreen={this.onFullScreen}
-          onStart={() => console.log("onStart")}
-          onEnd={() => alert("on End")}
           loop
           topBar={TopBar}
           videoId="Z1LmpiIGYNs"
-          //autoPlay
+          autoPlay
+          onFullScreen={this.onFullScreen}
+          onStart={() => console.log("onStart")}
+          onEnd={() => alert("on End")}
         />
 
         <View>
