@@ -6,10 +6,6 @@ A cross-platform Youtube Player component for React Native Built using the offic
 
 ## DEMO
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 90b6657755874201b9153877c2ea0834e5f6c792
 ![Demo](https://raw.githubusercontent.com/barmej/react-native-youtube-player/master/demo.gif)
 
 ## Features
@@ -38,7 +34,7 @@ react-native link react-native-reanimated
 react-native link react-native-orientation
 ```
 
-**IMPORTANT:** There are additional steps required for `react-native-orientation` on Android after running `react-native link react-native-gesture-handler`. Check the [this guide](https://github.com/yamill/react-native-orientation#configuration) to complete the installation.
+**IMPORTANT:** There are additional steps required for `react-native-orientation` on Android after running `react-native link react-native-orientation`. Check the [this guide](https://github.com/yamill/react-native-orientation#configuration) to complete the installation.
 
 ## Quick Start
 
@@ -99,3 +95,9 @@ const TopBar = ({ play, fullScreen }) => (
 ## Licensing
 
 The code in this project is licensed under MIT license.
+
+## Credit
+
+[`react-native-webview-invoke`](https://github.com/pinqy520/react-native-webview-invoke) For Making Communication between react-native and webview simple and clean.
+
+[`react-native-tab-view`](https://github.com/react-native-community/react-native-tab-view) For the great Project structure.
