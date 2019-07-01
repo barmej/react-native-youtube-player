@@ -103,8 +103,6 @@ const TopBar = ({ play, fullScreen }) => (
 |onPlaybackRateChange | () =>void |  Execute a function when the playback rate will actually change |
 |onEnd          | () => void   | Execute a function on end |
 
-  
-...
 
 ## Licensing
 
