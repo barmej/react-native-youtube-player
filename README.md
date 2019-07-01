@@ -96,7 +96,7 @@ const TopBar = ({ play, fullScreen }) => (
 | style         | object        | You can pass this to override some default styles |
 | topBar        | (play: boolean, fullScreen: boolean) => React.ReactNode  | Function which takes  the play and fullScreen status and return a react element to be used as a topBar   |
 | showFullScreenButton| Boolean |   Display a button to allow user to see the video on fullScreen     |
-| onFullScreen  | (fullScreen: Boolean) | Execute a function in fullScreen |
+| onFullScreen  | (fullScreen: Boolean) => void | Execute a function in fullScreen |
 | onStart       | () => void    | Execute a function on start |
 | onPause       | () => void   | Execute a function on pause   |
 |onDurationReady| (s: number) => void    |Execute a function when the duration is ready |
