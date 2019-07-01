@@ -101,7 +101,7 @@ const TopBar = ({ play, fullScreen }) => (
 | onPause       | function() => void   | execute a function on pause   |
 |onDurationReady| function(s: number) => void    |execute a function when the duration is ready |
 |onPlaybackRateChange | function() =>void |  execute a function when the playback rate will actually change |
-|onEnd          | function() => void   | execute a function |
+|onEnd          | function() => void   | execute a function on end |
 
   
 ...
