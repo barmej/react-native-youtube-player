@@ -89,19 +89,19 @@ const TopBar = ({ play, fullScreen }) => (
 ## API reference
 |   Property    |      Type     |  description  |
 | :---          | :---:          |:---          |
-| videoId(required)| string     |               |
-| autoPlay      |  Boolean      |               |
-  onError       |  function()   |               |
-| loop(required)         | Boolean       | loop the video|
+| videoId(required)| string     | youtube video Id  |
+| autoPlay      |  Boolean      | auto play the video |
+  onError       |  function() => void   |execute a function on error     |
+| loop(required)| Boolean   | loop the video|
 | style         | object        | You can pass this to override some default styles |
 | topBar        | function(play: boolean, fullScreen: boolean)  | function which takes an object with the play and fullScreen status and return a react element to be used as a topBar   |
-| showFullScreenButton| Boolean |               |
+| showFullScreenButton| Boolean |   display a button to allow user to see the video on fullScreen     |
 | onFullScreen  | function(fullScreen: Boolean) | execute a function in fullScreen |
-| onStart       | function()    | execute a function on start |
-| onPause       | function()    |               |
-|onDurationReady| function()    |               |
-|onPlaybackRateChange | function()              |
-|onEnd          | function()    |               |
+| onStart       | function() => void    | execute a function on start |
+| onPause       | function() => void   | execute a function on pause   |
+|onDurationReady| function(s: number) => void    |execute a function when the duration is ready |
+|onPlaybackRateChange | function() =>void |  execute a function when the playback rate will actually change |
+|onEnd          | function() => void   | execute a function |
 
   
 ...
