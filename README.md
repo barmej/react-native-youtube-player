@@ -89,19 +89,19 @@ const TopBar = ({ play, fullScreen }) => (
 ## API reference
 |   Property    |      Type     |  description  |
 | :---          | :---:          |:---          |
-| videoId(required)| string     | youtube video Id  |
-| autoPlay      |  Boolean      | auto play the video |
-  onError       |  function() => void   |execute a function on error     |
-| loop(required)| Boolean   | loop the video|
+| videoId(required)| string     | Youtube video Id  |
+| autoPlay      |  Boolean      | Auto play the video |
+  onError       |  () => void   |Execute a function on error     |
+| loop(required)| Boolean   | Loop the video|
 | style         | object        | You can pass this to override some default styles |
-| topBar        | function(play: boolean, fullScreen: boolean)  | function which takes an object with the play and fullScreen status and return a react element to be used as a topBar   |
-| showFullScreenButton| Boolean |   display a button to allow user to see the video on fullScreen     |
-| onFullScreen  | function(fullScreen: Boolean) | execute a function in fullScreen |
-| onStart       | function() => void    | execute a function on start |
-| onPause       | function() => void   | execute a function on pause   |
-|onDurationReady| function(s: number) => void    |execute a function when the duration is ready |
-|onPlaybackRateChange | function() =>void |  execute a function when the playback rate will actually change |
-|onEnd          | function() => void   | execute a function on end |
+| topBar        | (play: boolean, fullScreen: boolean) => React.ReactNode  | Function which takes  the play and fullScreen status and return a react element to be used as a topBar   |
+| showFullScreenButton| Boolean |   Display a button to allow user to see the video on fullScreen     |
+| onFullScreen  | (fullScreen: Boolean) | Execute a function in fullScreen |
+| onStart       | () => void    | Execute a function on start |
+| onPause       | () => void   | Execute a function on pause   |
+|onDurationReady| (s: number) => void    |Execute a function when the duration is ready |
+|onPlaybackRateChange | () =>void |  Execute a function when the playback rate will actually change |
+|onEnd          | () => void   | Execute a function on end |
 
   
 ...
