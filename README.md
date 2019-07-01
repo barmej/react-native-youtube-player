@@ -92,7 +92,7 @@ const TopBar = ({ play, fullScreen }) => (
 | videoId(required)| string     | Youtube video Id  |
 | autoPlay      |  Boolean      | Auto play the video |
   onError       |  () => void   |Execute a function on error     |
-| loop(required)| Boolean   | Loop the video|
+| loop| Boolean   | Loop the video|
 | style         | object        | You can pass this to override some default styles |
 | topBar        | (play: boolean, fullScreen: boolean) => React.ReactNode  | Function which takes  the play and fullScreen status and return a react element to be used as a topBar   |
 | showFullScreenButton| Boolean |   Display a button to allow user to see the video on fullScreen     |
