@@ -87,10 +87,22 @@ const TopBar = ({ play, fullScreen }) => (
 ```
 
 ## API reference
+|   Property    |      Type     |  description  |
+| :---          | :---:          |:---          |
+| videoId(required)| string     | Youtube video Id  |
+| autoPlay      |  Boolean      | Auto play the video |
+  onError       |  () => void   |Execute a function on error     |
+| loop| Boolean   | Loop the video|
+| style         | object        | You can pass this to override some default styles |
+| topBar        | (play: boolean, fullScreen: boolean) => React.ReactNode  | Function which takes  the play and fullScreen status and return a react element to be used as a topBar   |
+| showFullScreenButton| Boolean |   Display a button to allow user to see the video on fullScreen     |
+| onFullScreen  | (fullScreen: Boolean) => void | Execute a function in fullScreen |
+| onStart       | () => void    | Execute a function on start |
+| onPause       | () => void   | Execute a function on pause   |
+|onDurationReady| (s: number) => void    |Execute a function when the duration is ready |
+|onPlaybackRateChange | () =>void |  Execute a function when the playback rate will actually change |
+|onEnd          | () => void   | Execute a function on end |
 
-// TODO : https://github.com/barmej/react-native-youtube-player/blob/master/src/mobile/types.tsx#L54
-
-...
 
 ## Licensing
 
