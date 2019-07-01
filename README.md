@@ -89,19 +89,19 @@ const TopBar = ({ play, fullScreen }) => (
 ## API reference
 |   Property    |      Type     |  description  |
 | :---          | :---:          |:---          |
-| videoId(required)| string     | You can pass this to override some default styles |
+| videoId(required)| string     |               |
 | autoPlay      |  Boolean      |               |
   onError       |  function()   |               |
 | loop(required)         | Boolean       | loop the video|
-| style         | object        |               |
+| style         | object        | You can pass this to override some default styles |
 | topBar        | function(play: boolean, fullScreen: boolean)  | function which takes an object with the play and fullScreen status and return a react element to be used as a topBar   |
-| showFullScreenButton| Boolean | ------------- |
+| showFullScreenButton| Boolean |               |
 | onFullScreen  | function(fullScreen: Boolean) | execute a function in fullScreen |
 | onStart       | function()    | execute a function on start |
-| onPause       | function()    |                   |
-|onDurationReady| function()    |      |
-|onPlaybackRateChange | function() |   |
-|onEnd          | function()    |      |
+| onPause       | function()    |               |
+|onDurationReady| function()    |               |
+|onPlaybackRateChange | function()              |
+|onEnd          | function()    |               |
 
   
 ...
