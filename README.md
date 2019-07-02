@@ -1,12 +1,6 @@
-## React Native Youtube Player
+# React Native Youtube Player
 
 A cross-platform Youtube Player component for React Native Built using the official [YouTube IFrame Player API](https://developers.google.com/youtube/iframe_api_reference).
-
-- Checkout the [example/](https://github.com/barmej/react-native-youtube-player/tree/master/example) folder for source code.
-
-## DEMO
-
-![Demo](https://raw.githubusercontent.com/barmej/react-native-youtube-player/master/demo.gif)
 
 ## Features
 
@@ -16,6 +10,12 @@ A cross-platform Youtube Player component for React Native Built using the offic
 - Full Control
 - Add Custom TopBar
 - Fully typed with TypeScript
+
+## DEMO
+
+- Checkout the [example/](https://github.com/barmej/react-native-youtube-player/tree/master/example) folder for demo source code.
+
+![Demo](https://raw.githubusercontent.com/barmej/react-native-youtube-player/master/demo.gif)
 
 ## Installation
 
@@ -87,22 +87,88 @@ const TopBar = ({ play, fullScreen }) => (
 ```
 
 ## API reference
-|   Property    |      Type     |  description  |
-| :---          | :---:          |:---          |
-| videoId(required)| string     | Youtube video Id  |
-| autoPlay      |  Boolean      | Auto play the video |
-  onError       |  () => void   |Execute a function on error     |
-| loop| Boolean   | Loop the video|
-| style         | object        | You can pass this to override some default styles |
-| topBar        | (play: boolean, fullScreen: boolean) => React.ReactNode  | Function which takes  the play and fullScreen status and return a react element to be used as a topBar   |
-| showFullScreenButton| Boolean |   Display a button to allow user to see the video on fullScreen     |
-| onFullScreen  | (fullScreen: Boolean) => void | Execute a function in fullScreen |
-| onStart       | () => void    | Execute a function on start |
-| onPause       | () => void   | Execute a function on pause   |
-|onDurationReady| (s: number) => void    |Execute a function when the duration is ready |
-|onPlaybackRateChange | () =>void |  Execute a function when the playback rate will actually change |
-|onEnd          | () => void   | Execute a function on end |
 
+| Property             |                          Type                           | Description                                                                                           |
+| :------------------- | :-----------------------------------------------------: | :---------------------------------------------------------------------------------------------------- |
+| videoId(required)    |                         string                          | Youtube video Id                                                                                      |
+| autoPlay             |                         Boolean                         | Auto play the video                                                                                   |
+| loop                 |                         Boolean                         | Loop the video                                                                                        |
+| style                |                         object                          | You can pass this to override some default styles                                                     |
+| topBar               | (play: boolean, fullScreen: boolean) => React.ReactNode | Function which takes the play and fullScreen status and return a react element to be used as a topBar |
+| showFullScreenButton |                         Boolean                         | Display a button to allow user to see the video on fullScreen                                         |
+| onFullScreen         |              (fullScreen: Boolean) => void              | Execute a function on fullScreen changed                                                              |
+| onStart              |                       () => void                        | Execute a function on start                                                                           |
+| onPause              |                       () => void                        | Execute a function on pause                                                                           |
+| onDurationReady      |                   (s: number) => void                   | Execute a function when the duration is ready                                                         |
+| onPlaybackRateChange |                        () =>void                        | Execute a function when the playback rate will actually change                                        |
+| onEnd                |                       () => void                        | Execute a function on end                                                                             |
+| onError              |                       () => void                        | Execute a function on error                                                                           |
+
+Check [types.tsx](https://github.com/barmej/react-native-youtube-player/tree/master/src/mobile/types.tsx) file.
+
+You can use `Ref` to access to Player functions in case you want to have full control :
+
+```jsx
+import React, { Component } from "react";
+import { Platform, StyleSheet, Text, View } from "react-native";
+import YoutubePlayer from "react-native-yt-player";
+
+export default class App extends Component<Props> {
+  onFullScreen = fullScreen => {
+    console.log("fullscreen ", fullScreen);
+  };
+
+  play = () => {
+    this.player.playVideo();
+  };
+  pause = () => {
+    this.player.pauseVideo();
+  };
+
+  seekTo = s => {
+    this.player.seekTo(s);
+  };
+  render() {
+    return (
+      <View style={{ paddingTop: 60 }}>
+        <YoutubePlayer
+          loop
+          ref={ref => {
+            this.player = ref;
+          }}
+          topBar={TopBar}
+          videoId="Z1LmpiIGYNs"
+          autoPlay
+          onFullScreen={this.onFullScreen}
+          onStart={() => console.log("onStart")}
+          onEnd={() => alert("on End")}
+        />
+
+        <View>
+          <Text>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Commodi,
+            aspernatur rerum, deserunt cumque ipsam unde nam voluptatum tenetur
+            cupiditate veritatis autem quidem ad repudiandae sapiente odit
+            voluptates fugit placeat ut!
+          </Text>
+        </View>
+      </View>
+    );
+  }
+}
+
+const TopBar = ({ play, fullScreen }) => (
+  <View
+    style={{
+      alignSelf: "center",
+      position: "absolute",
+      top: 0
+    }}
+  >
+    <Text style={{ color: "#FFF" }}> Custom Top bar</Text>
+  </View>
+);
+```
 
 ## Licensing
 
