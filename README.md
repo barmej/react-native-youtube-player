@@ -29,7 +29,7 @@ Link [`react-native-webview`](https://github.com/react-native-community/react-na
 
 ```sh
 react-native link react-native-webview
-react-native link react-native link @react-native-community/slider
+react-native link @react-native-community/slider
 react-native link react-native-reanimated
 react-native link react-native-orientation
 ```
