@@ -18,7 +18,7 @@ const TopBar = ({ play, fullScreen }) => (
       top: 0
     }}
   >
-    <Text style={{ color: "#FFF" }}> Custom Top bar</Text>
+    {!fullScreen && <Text style={{ color: "#FFF" }}> Custom Top bar</Text>}
   </View>
 );
 
