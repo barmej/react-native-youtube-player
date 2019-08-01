@@ -35,7 +35,6 @@ export default class App extends Component<Props> {
     return (
       <View style={{ paddingTop: 60 }}>
         <YoutubePlayer
-          loop
           topBar={TopBar}
           videoId="Z1LmpiIGYNs"
           autoPlay
