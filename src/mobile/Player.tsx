@@ -2,13 +2,7 @@ import React, { PureComponent } from "react";
 import Animated, { Easing } from "react-native-reanimated";
 const { Value, timing } = Animated;
 
-import {
-  View,
-  StatusBar,
-  Platform,
-  Dimensions,
-  BackHandler
-} from "react-native";
+import { View, StatusBar, Platform, BackHandler } from "react-native";
 import styles from "./styles";
 import PlayerControls from "./Controls";
 import PlayerView from "./YTWebView";
@@ -47,12 +41,13 @@ export default class Player extends PureComponent<PlayerProps, PlayerState> {
   _isUserUsingIconToFullScreen = false;
 
   componentDidMount() {
-    Dimensions.addEventListener("change", this.onRotated);
+    Orientation.addOrientationListener(this.onRotated);
+
     BackHandler.addEventListener("hardwareBackPress", this.onBackButtonClick);
   }
 
   componentWillUnmount() {
-    Dimensions.removeEventListener("change", this.onRotated);
+    Orientation.removeOrientationListener(this.onRotated);
     BackHandler.removeEventListener(
       "hardwareBackPress",
       this.onBackButtonClick
@@ -106,15 +101,6 @@ export default class Player extends PureComponent<PlayerProps, PlayerState> {
     this.player._pauseVideo();
   };
 
-  // toggleFS = () => {
-  //   const { fullScreen } = this.state;
-  //   const { onFullScreen } = this.props;
-  //   this.setState({ fullScreen: !fullScreen });
-  //   if (fullScreen) this.goToInlineScreen();
-  //   else this.goToFullScreen();
-  //   onFullScreen(!fullScreen);
-  // };
-
   toggleFS = () => {
     this._isUserUsingIconToFullScreen = true;
     setTimeout(() => {
@@ -135,22 +121,19 @@ export default class Player extends PureComponent<PlayerProps, PlayerState> {
     });
   };
 
-  onRotated = ({ window: { width, height } }) => {
+  onRotated = orientation => {
     if (this._isUserUsingIconToFullScreen) return;
-
-    // Add this condition incase if inline and fullscreen options are turned on
-    //if (this.props.inlineOnly) return
-    const orientation = width > height ? "LANDSCAPE" : "PORTRAIT";
+    Orientation.unlockAllOrientations();
     const rotateToFullScreen = true;
     if (rotateToFullScreen) {
-      if (orientation === "LANDSCAPE") {
+      if (orientation === "LANDSCAPE" || orientation === "PORTRAITUPSIDEDOWN") {
         if (this.state.fullScreen) return;
         this.setState({ fullScreen: true }, () => {
           this.goToFullScreen();
+          Orientation.unlockAllOrientations();
         });
         return;
-      }
-      if (orientation === "PORTRAIT") {
+      } else {
         if (!this.state.fullScreen) return;
 
         this.setState(
