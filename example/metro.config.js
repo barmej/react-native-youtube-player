@@ -4,6 +4,7 @@ const escape = require("escape-string-regexp");
 const pak = require("../package.json");
 
 const peerDependencies = Object.keys(pak.peerDependencies);
+const dependencies = Object.keys(pak.dependencies);
 
 module.exports = {
   projectRoot: __dirname,
@@ -16,6 +17,6 @@ module.exports = {
       )
     ]),
 
-    providesModuleNodeModules: ["@babel/runtime", ...peerDependencies]
+    providesModuleNodeModules: ["@babel/runtime", ...peerDependencies, ...dependencies]
   }
 };
