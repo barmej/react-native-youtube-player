@@ -23,6 +23,10 @@ Open a Terminal in the project root and run:
 
 ```sh
 yarn add react-native-yt-player
+yarn add react-native-webview
+yarn add @react-native-community/slider
+yarn add react-native-reanimated
+yarn add react-native-orientation
 ```
 
 Link [`react-native-webview`](https://github.com/react-native-community/react-native-webview), [`react-native-slider`](https://github.com/react-native-community/react-native-slider),[`react-native-orientation`](https://github.com/yamill/react-native-orientation) and [`react-native-reanimated`](https://github.com/kmagiera/react-native-reanimated):

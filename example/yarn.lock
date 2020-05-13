@@ -1535,7 +1535,7 @@ data-urls@^1.0.0:
     whatwg-mimetype "^2.2.0"
     whatwg-url "^7.0.0"
 
-debug@2.6.9, debug@^2.2.0, debug@^2.3.3:
+debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.6:
   version "2.6.9"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
   dependencies:
@@ -3134,6 +3134,11 @@ load-json-file@^4.0.0:
     pify "^3.0.0"
     strip-bom "^3.0.0"
 
+load-script@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/load-script/-/load-script-1.0.0.tgz#0491939e0bee5643ee494a7e3da3d2bac70c6ca4"
+  integrity sha1-BJGTngvuVkPuSUp+PaPSuscMbKQ=
+
 locate-path@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/locate-path/-/locate-path-2.0.0.tgz#2b568b265eec944c6d9c0de9c3dbbbca0354cd8e"
@@ -4269,9 +4274,10 @@ react-native-reanimated@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-1.0.1.tgz#5ecb6a2f6dad0351077ac9b771ca943b7ad6feda"
 
-react-native-webview-invoke@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/react-native-webview-invoke/-/react-native-webview-invoke-0.5.0.tgz#3360cf2f165272dfdb870248e773378c27e0b12d"
+react-native-webview-invoke@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/react-native-webview-invoke/-/react-native-webview-invoke-0.5.1.tgz#e6c856a350e472b5cc89ce71f566ebce843adc2a"
+  integrity sha512-/i/ZznUCElTmv1ITdqizOjGdPv1uMq1CY1aoPIVXmAMuhetY9gBv9Vcn/tWv7g2isTKi1NCTc/xnzMgJxT28XQ==
 
 react-native-webview@^5.10.0:
   version "5.10.0"
@@ -4771,6 +4777,11 @@ simple-plist@^1.0.0:
     bplist-creator "0.0.7"
     bplist-parser "0.1.1"
     plist "^3.0.1"
+
+sister@^3.0.0:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/sister/-/sister-3.0.2.tgz#bb3e39f07b1f75bbe1945f29a27ff1e5a2f26be4"
+  integrity sha512-p19rtTs+NksBRKW9qn0UhZ8/TUI9BPw9lmtHny+Y3TinWlOa9jWh9xB0AtPSdmOy49NJJJSSe0Ey4C7h0TrcYA==
 
 sisteransi@^1.0.0:
   version "1.0.0"
@@ -5470,3 +5481,12 @@ yargs@^9.0.0:
     which-module "^2.0.0"
     y18n "^3.2.1"
     yargs-parser "^7.0.0"
+
+youtube-player@^5.5.2:
+  version "5.5.2"
+  resolved "https://registry.yarnpkg.com/youtube-player/-/youtube-player-5.5.2.tgz#052b86b1eabe21ff331095ffffeae285fa7f7cb5"
+  integrity sha512-ZGtsemSpXnDky2AUYWgxjaopgB+shFHgXVpiJFeNB5nWEugpW1KWYDaHKuLqh2b67r24GtP6HoSW5swvf0fFIQ==
+  dependencies:
+    debug "^2.6.6"
+    load-script "^1.0.0"
+    sister "^3.0.0"
