@@ -21,7 +21,8 @@ export default ({
   duration,
   pauseVideo,
   playVideo,
-  fullScreen
+  fullScreen,
+  isLive
 }: Props) => (
   <View style={[styles.container, { bottom: fullScreen ? 20 : 0 }]}>
     <Progress progress={value} />
