@@ -11,6 +11,7 @@ type Props = {
   playVideo: () => void;
   pauseVideo: () => void;
   seekTo: (t: number) => void;
+  isLive:Boolean;
 };
 
 export default ({
@@ -30,7 +31,7 @@ export default ({
         minimumValue={0}
         onSlidingStart={pauseVideo}
         onSlidingComplete={p => {
-          seekTo(p * duration);
+          !isLive?seekTo(p * duration):seekTo(p * 0);
           playVideo();
         }}
         maximumValue={1}

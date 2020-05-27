@@ -70,7 +70,6 @@ export default ({
   }, [play, ready]);
   const progress =
     isLive?currentTime = duration = 0: currentTime !== 0 && duration !== 0 ? currentTime / duration : 0;
-
   return (
     <View
       style={[styles.container, { paddingHorizontal: fullScreen ? 40 : 0 }]}
@@ -102,7 +101,7 @@ export default ({
             <View style={[styles.footer, { bottom: fullScreen ? 30 : 10 }]}>
               <Text style={styles.text}> {sec2time(currentTime)} </Text>
               <View style={styles.footerRight}>
-                <Text style={styles.text}> {sec2time(duration)} </Text>
+                <Text style={styles.text}> {sec2time(!isLive?duration:0)} </Text>
                 {showFullScreenButton && (
                   <React.Fragment>
                     {fullScreen ? (
@@ -119,7 +118,7 @@ export default ({
       )}
       <ProgressBar
         value={progress}
-        {...{ fullScreen, visible, seekTo, duration, pauseVideo, playVideo }}
+        {...{ fullScreen, visible, seekTo, duration, pauseVideo, playVideo, isLive }}
       />
     </View>
   );

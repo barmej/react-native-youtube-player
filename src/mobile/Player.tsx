@@ -56,14 +56,8 @@ export default class Player extends PureComponent<PlayerProps, PlayerState> {
 
   // listeners
   onDurationReady = (duration: number) => {
-    if(!this.props.isLive){
-      this.setState({ duration });
-      this.props.onDurationReady(duration);
-    }else{
-      this.setState({ duration:0 });
-      this.props.onDurationReady(0);
-    }
-    
+    this.setState({ duration });
+    this.props.onDurationReady(duration);
     this.props.onStart();
   };
 
