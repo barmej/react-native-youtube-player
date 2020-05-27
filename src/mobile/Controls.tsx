@@ -19,10 +19,12 @@ type Props = {
   fullScreen: Boolean;
   duration: number;
   currentTime: number;
+  isLive:Boolean;
   playVideo: () => void;
   pauseVideo: () => void;
   seekTo: (t: number) => void;
   toggleFS: () => void;
+  
   topBar?: ({
     play,
     fullScreen
@@ -43,6 +45,7 @@ export default ({
   seekTo,
   toggleFS,
   fullScreen,
+  isLive,
   showFullScreenButton
 }: Props) => {
   const [visible, setVisible] = useState(true);
@@ -66,7 +69,7 @@ export default ({
     };
   }, [play, ready]);
   const progress =
-    currentTime !== 0 && duration !== 0 ? currentTime / duration : 0;
+    isLive?currentTime = duration = 0: currentTime !== 0 && duration !== 0 ? currentTime / duration : 0;
 
   return (
     <View
