@@ -63,6 +63,7 @@ export interface PlayerProps extends YTWebViewProps {
   showFullScreenButton?: Boolean;
   onFullScreen?: (fullscreen: Boolean) => void;
   onStart?: () => void;
+  isLive?: Boolean;
 }
 
 export const PlayerDefaultProps = {
