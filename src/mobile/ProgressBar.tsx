@@ -11,6 +11,7 @@ type Props = {
   playVideo: () => void;
   pauseVideo: () => void;
   seekTo: (t: number) => void;
+  isLive:Boolean;
 };
 
 export default ({
@@ -20,7 +21,8 @@ export default ({
   duration,
   pauseVideo,
   playVideo,
-  fullScreen
+  fullScreen,
+  isLive
 }: Props) => (
   <View style={[styles.container, { bottom: fullScreen ? 20 : 0 }]}>
     <Progress progress={value} />
@@ -30,7 +32,7 @@ export default ({
         minimumValue={0}
         onSlidingStart={pauseVideo}
         onSlidingComplete={p => {
-          seekTo(p * duration);
+          !isLive?seekTo(p * duration):seekTo(p * 0);
           playVideo();
         }}
         maximumValue={1}
